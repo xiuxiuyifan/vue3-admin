@@ -50,6 +50,11 @@ npx husky init # husky初始化
 在 package.json 中配置 lint-staged 相关信息
 
 ```
+  "lint": "eslint",
+  "lint:fix": "eslint --fix --quiet",
+```
+
+```
   "lint-staged": {
     "src/**/*.{js,cjs,ts,vue}": [
       "npx eslint --fix"
@@ -75,17 +80,36 @@ pnpm install @commitlint/cli @commitlint/config-conventional -D
 添加钩子commit-msg
 
 ```
-pnpm add --save-dev husky
-
-pnpm husky init
-
-# Add commit message linting to commit-msg hook
-echo "pnpm dlx commitlint --edit \$1" > .husky/commit-msg
-```
-
-或者，您可以在 package.json 中创建脚本
+npx --no-install commitlint --edit $1
 
 ```
-npm pkg set scripts.commitlint="commitlint --edit"
-echo "pnpm commitlint \${1}" > .husky/commit-msg
+
+commit-msg 文件
+
+```
+npx commitlint --edit $1
+```
+
+pre-commit
+
+```
+npx lint-staged
+```
+
+commitlint 配置
+增添 commitlint.config.cjs 配置⽂件
+
+```
+module.exports = {
+extends: ["@commitlint/config-conventional"],
+};
+```
+
+测试⼀下：git commit -m"feat: 初始化项⽬"
+
+## 集成 vue-router
+
+```
+pnpm install vue-router
+
 ```

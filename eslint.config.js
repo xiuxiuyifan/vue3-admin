@@ -27,7 +27,7 @@ export default [
   {
     rules: {
       "no-console": "warn",
-      semi: ["error", "always"],
+      "vue/multi-word-component-names": "off",
     },
   },
   eslintPluginPrettierRecommended,
