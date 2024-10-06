@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router"
 import Layout from "@/layout/index.vue"
 
-const routes: Array<RouteRecordRaw> = [
+const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: "/",
     component: Layout,
@@ -10,12 +10,91 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "dashboard",
         name: "dashboard",
-        component: () => import("@/views/dashboard/index.vue")
+        component: () => import("@/views/dashboard/index.vue"),
+        meta: {
+          title: "dashboard",
+          icon: "ant-design:windows-filled"
+        }
       }
     ]
   }
 ]
 
+const asyncRoutes: Array<RouteRecordRaw> = [
+  {
+    path: "/documentation",
+    component: Layout,
+    redirect: "/documentation/index",
+    children: [
+      {
+        path: "index",
+        name: "documentation",
+        component: () => import("@/views/documentation/index.vue"),
+        meta: {
+          icon: "ant-design:database-filled",
+          title: "documentation"
+        }
+      }
+    ]
+  },
+  {
+    path: "/guide",
+    component: Layout,
+    redirect: "/guide/index",
+    children: [
+      {
+        path: "index",
+        name: "guide",
+        component: () => import("@/views/guide/index.vue"),
+        meta: {
+          icon: "ant-design:car-twotone",
+          title: "guide"
+        }
+      }
+    ]
+  },
+  {
+    path: "/system",
+    component: Layout,
+    redirect: "/system/menu",
+    meta: {
+      icon: "ant-design:unlock-filled",
+      title: "system"
+    },
+    children: [
+      {
+        path: "menu",
+        name: "menu",
+        component: () => import("@/views/system/menu.vue"),
+        meta: {
+          icon: "ant-design:unlock-filled",
+          title: "menu"
+        }
+      },
+      {
+        path: "role",
+        name: "role",
+        component: () => import("@/views/system/role.vue"),
+        meta: {
+          icon: "ant-design:unlock-filled",
+          title: "menu"
+        }
+      },
+      {
+        path: "user",
+        name: "user",
+        component: () => import("@/views/system/user.vue"),
+        meta: {
+          icon: "ant-design:unlock-filled",
+          title: "user"
+        }
+      }
+    ]
+  }
+]
+
+// 静态路由和动态路由进行合并
+const routes = [...constantRoutes, ...asyncRoutes]
 export default createRouter({
   history: createWebHashHistory(),
   routes

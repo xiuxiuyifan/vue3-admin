@@ -1,6 +1,8 @@
 <template>
   <div class="app-wrapper">
-    <div class="sidebar-container">sidebar</div>
+    <div class="sidebar-container">
+      <Sidebar />
+    </div>
     <div class="main-container">
       <div class="header">
         <div class="navbar">navbar</div>
@@ -21,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import Sidebar from "./Sidebar/index.vue"
 // eslint 不认识这个 api
 const instance = getCurrentInstance()!
 const handleClickBtn = () => {
@@ -33,7 +36,9 @@ const handleClickBtn = () => {
   @apply flex w-full h-full;
 
   .sidebar-container {
-    @apply bg-yellow w-[var(--sidebar-width)];
+    :deep(.sidebar-container-menu:not(.el-menu--collapse)) {
+      @apply w-[var(--sidebar-width)];
+    }
   }
 
   .main-container {
