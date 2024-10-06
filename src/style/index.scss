@@ -1,0 +1,8 @@
+@import "./variables.module.scss";
+
+// 定义 将 scss 变量注册成 css 变量
+:root {
+  --sidebar-width: #{$sideBarWidth};
+  --navbar-height: #{$navBarHeight};
+  --tagsview-height: #{$tagsViewHeight};
+}

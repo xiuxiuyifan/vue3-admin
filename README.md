@@ -107,9 +107,49 @@ extends: ["@commitlint/config-conventional"],
 
 测试⼀下：git commit -m"feat: 初始化项⽬"
 
-## 集成 vue-router
+### 集成 vue-router
 
 ```
 pnpm install vue-router
 
 ```
+
+### 集成 pinia
+
+### 搭建 layout布局
+
+### 配置路由
+
+### sass 样式处理
+
+### 使用 unocss
+
+将行内的 unocss 提取到 scss 中去，使用
+
+```
+@apply flex;
+```
+
+### 清除默认样式
+
+### 完善 layout 样式
+
+### 提取公共变量
+
+创建 variables.module.scss 配置基础变量
+
+```
+
+```
+
+### 组件库配置
+
+#### 按需导入
+
+#### 组件API挂载到app上
+
+```
+
+```
+
+#### 解决 eslint 报错
