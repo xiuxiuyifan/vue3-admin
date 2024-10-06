@@ -5,7 +5,7 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <div class="navbar">navbar</div>
+        <Navbar />
         <div class="tags-view">tagview</div>
       </div>
       <div class="app-main">
@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import Navbar from "./Navbar.vue"
 import Sidebar from "./Sidebar/index.vue"
 // eslint 不认识这个 api
 const instance = getCurrentInstance()!

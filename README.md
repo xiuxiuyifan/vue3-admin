@@ -178,6 +178,26 @@ pnpm install vue-router
 
 
 
+### 菜单收缩按钮以及接入 pinia 
+
+
+
+
+
+####  创建菜单收缩按钮组件
+
+#### 接⼊ pinia
+
+
+
+### pinia 持久化
+
+
+
+
+
+
+
 
 
 

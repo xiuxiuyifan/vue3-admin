@@ -1,9 +1,8 @@
 <template>
-  <el-button @click="isCollapse = !isCollapse">折叠</el-button>
   <el-menu
     router
     class="sidebar-container-menu"
-    :collapse="isCollapse"
+    :collapse="sidebar.opened"
     :default-active="activeMenu"
     mode="vertical"
     :background-color="varaibles.menuBg"
@@ -45,7 +44,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useAppStore } from "@/stores/app"
 import varaibles from "@/style/variables.module.scss"
+import { storeToRefs } from "pinia"
 
 const route = useRoute()
 // 根据路由激活当前的菜单
@@ -53,5 +54,6 @@ const activeMenu = computed(() => {
   return route.path
 })
 
-const isCollapse = ref(false)
+const appStore = useAppStore()
+const { sidebar } = storeToRefs(appStore)
 </script>
