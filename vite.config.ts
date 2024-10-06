@@ -2,6 +2,7 @@ import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import path from "path"
 import UnoCSS from "unocss/vite"
+import ElementPlus from "unplugin-element-plus/vite"
 
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
@@ -34,6 +35,8 @@ export default defineConfig({
       dts: "src/components.d.ts",
       // ⽣成的组件的类型放到这⾥
       resolvers: [ElementPlusResolver()]
-    })
+    }),
+    // 导入样式 不需要引入
+    ElementPlus({})
   ]
 })

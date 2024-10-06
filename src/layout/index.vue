@@ -8,7 +8,12 @@
       </div>
       <div class="app-main">
         <h2>app main</h2>
+        <div i-ant-design:account-book-outlined icon></div>
         <el-button type="primary" @click="handleClickBtn">你好</el-button>
+        <SvgIcon
+          icon-name="ant-design:account-book-twotone"
+          custom-class="text-red-500"
+        ></SvgIcon>
         <RouterView />
       </div>
     </div>

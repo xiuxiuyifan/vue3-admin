@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.5.10(typescript@5.6.2))
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -36,6 +39,12 @@ importers:
       '@eslint/js':
         specifier: ^9.11.1
         version: 9.11.1
+      '@iconify-json/ant-design':
+        specifier: ^1.2.1
+        version: 1.2.1
+      '@unocss/preset-icons':
+        specifier: ^0.63.3
+        version: 0.63.3
       '@vitejs/plugin-vue':
         specifier: ^5.1.2
         version: 5.1.4(vite@5.4.8(@types/node@22.7.4)(sass@1.79.4))(vue@3.5.10(typescript@5.6.2))
@@ -78,6 +87,9 @@ importers:
       unplugin-auto-import:
         specifier: ^0.18.3
         version: 0.18.3(@vueuse/core@9.13.0(vue@3.5.10(typescript@5.6.2)))(rollup@4.22.5)
+      unplugin-element-plus:
+        specifier: ^0.8.0
+        version: 0.8.0(rollup@4.22.5)
       unplugin-vue-components:
         specifier: ^0.27.4
         version: 0.27.4(@babel/parser@7.25.6)(rollup@4.22.5)(vue@3.5.10(typescript@5.6.2))
@@ -536,11 +548,19 @@ packages:
     resolution: {integrity: sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==}
     engines: {node: '>=18.18'}
 
+  '@iconify-json/ant-design@1.2.1':
+    resolution: {integrity: sha512-hqqH+TQ1EUU4wC7iL98UF+bgaF6iymvNxopPcApPyTsxIgBujHLx99R8ZV5sF1F2ZZs2mTQtDlm3LwV6wMChhg==}
+
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@iconify/utils@2.1.33':
     resolution: {integrity: sha512-jP9h6v/g0BIZx0p7XGJJVtkVnydtbgTgt9mVNcGDYwaa7UhdHdI9dvoq+gKj9sijMSJKxUPEG2JyjsgXjxL7Kw==}
+
+  '@iconify/vue@4.1.2':
+    resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
+    peerDependencies:
+      vue: '>=3'
 
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
@@ -778,6 +798,9 @@ packages:
   '@unocss/core@0.63.1':
     resolution: {integrity: sha512-scg53c6vw8cRsX4DbUO+MlTXicA9GWztm6PW0lsisJxXrdbQQCd+J+PIhrxLUExxeNqxTKsL3Msy9bwJU5uUsQ==}
 
+  '@unocss/core@0.63.3':
+    resolution: {integrity: sha512-LPDog+Dt36ut9yomgpKDHn4j/kI72sWtxm3iL6agEK3NDQToQsizQU6f8ZsIyUrpi7CoIV2i+3vmsdxauBd4kw==}
+
   '@unocss/extractor-arbitrary-variants@0.63.1':
     resolution: {integrity: sha512-yqHDUgFCR4R2HMuD2k4dVkkdT2uOa/gUDIY6xoseOx1r98Fxlyvdr0UnLOaWsSSzpSGm7SS7XtafGa24IgJRUQ==}
 
@@ -795,6 +818,9 @@ packages:
 
   '@unocss/preset-icons@0.63.1':
     resolution: {integrity: sha512-ucCLrlQ6DsFzqSu/Cmqo3q/F/ybV+2P/TQflHS9Oo8wtOETxTT0aPEEEd/sj1SPTU9uUbLEeS6TaRD6MrwLcrw==}
+
+  '@unocss/preset-icons@0.63.3':
+    resolution: {integrity: sha512-9/eP1owlRpxn2oeIw2Xf6goGkUcmzTXHFwsD0+ttafbFN0+T9Vp22p+ac6xJJ+wzJY6XDMJ2IVCcDLoNtMUajA==}
 
   '@unocss/preset-mini@0.63.1':
     resolution: {integrity: sha512-8NW3hK5fp+glBI2v1/3utp+Gv0yXoVTX66531BDDXxivsCJBNRTh40TP8hXSbtDne615UGrykIjyadsUHCRK5Q==}
@@ -1185,6 +1211,9 @@ packages:
 
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
+
+  es-module-lexer@1.5.4:
+    resolution: {integrity: sha512-MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==}
 
   esbuild@0.21.5:
     resolution: {integrity: sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==}
@@ -2104,6 +2133,10 @@ packages:
       '@vueuse/core':
         optional: true
 
+  unplugin-element-plus@0.8.0:
+    resolution: {integrity: sha512-jByUGY3FG2B8RJKFryqxx4eNtSTj+Hjlo8edcOdJymewndDQjThZ1pRUQHRjQsbKhTV2jEctJV7t7RJ405UL4g==}
+    engines: {node: '>=14.19.0'}
+
   unplugin-vue-components@0.27.4:
     resolution: {integrity: sha512-1XVl5iXG7P1UrOMnaj2ogYa5YTq8aoh5jwDPQhemwO/OrXW+lPQKDXd1hMz15qxQPxgb/XXlbgo3HQ2rLEbmXQ==}
     engines: {node: '>=14'}
@@ -2602,6 +2635,10 @@ snapshots:
 
   '@humanwhocodes/retry@0.3.0': {}
 
+  '@iconify-json/ant-design@1.2.1':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify/types@2.0.0': {}
 
   '@iconify/utils@2.1.33':
@@ -2615,6 +2652,11 @@ snapshots:
       mlly: 1.7.1
     transitivePeerDependencies:
       - supports-color
+
+  '@iconify/vue@4.1.2(vue@3.5.10(typescript@5.6.2))':
+    dependencies:
+      '@iconify/types': 2.0.0
+      vue: 3.5.10(typescript@5.6.2)
 
   '@jridgewell/gen-mapping@0.3.5':
     dependencies:
@@ -2847,6 +2889,8 @@ snapshots:
 
   '@unocss/core@0.63.1': {}
 
+  '@unocss/core@0.63.3': {}
+
   '@unocss/extractor-arbitrary-variants@0.63.1':
     dependencies:
       '@unocss/core': 0.63.1
@@ -2877,6 +2921,14 @@ snapshots:
     dependencies:
       '@iconify/utils': 2.1.33
       '@unocss/core': 0.63.1
+      ofetch: 1.4.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@unocss/preset-icons@0.63.3':
+    dependencies:
+      '@iconify/utils': 2.1.33
+      '@unocss/core': 0.63.3
       ofetch: 1.4.0
     transitivePeerDependencies:
       - supports-color
@@ -2918,7 +2970,7 @@ snapshots:
 
   '@unocss/rule-utils@0.63.1':
     dependencies:
-      '@unocss/core': 0.63.1
+      '@unocss/core': 0.63.3
       magic-string: 0.30.11
 
   '@unocss/transformer-attributify-jsx@0.63.1':
@@ -3337,6 +3389,8 @@ snapshots:
   error-ex@1.3.2:
     dependencies:
       is-arrayish: 0.2.1
+
+  es-module-lexer@1.5.4: {}
 
   esbuild@0.21.5:
     optionalDependencies:
@@ -4260,6 +4314,16 @@ snapshots:
       unplugin: 1.14.1
     optionalDependencies:
       '@vueuse/core': 9.13.0(vue@3.5.10(typescript@5.6.2))
+    transitivePeerDependencies:
+      - rollup
+      - webpack-sources
+
+  unplugin-element-plus@0.8.0(rollup@4.22.5):
+    dependencies:
+      '@rollup/pluginutils': 5.1.2(rollup@4.22.5)
+      es-module-lexer: 1.5.4
+      magic-string: 0.30.11
+      unplugin: 1.14.1
     transitivePeerDependencies:
       - rollup
       - webpack-sources

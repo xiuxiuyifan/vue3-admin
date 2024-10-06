@@ -2,11 +2,12 @@ import {
   defineConfig,
   presetAttributify,
   presetUno,
-  transformerDirectives
+  transformerDirectives,
+  presetIcons
 } from "unocss"
 
 export default defineConfig({
-  presets: [presetUno(), presetAttributify()],
+  presets: [presetUno(), presetAttributify(), presetIcons()],
   transformers: [transformerDirectives()]
 })
 
