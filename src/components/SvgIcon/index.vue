@@ -20,7 +20,7 @@ import { isExternal } from "@/utils/validate"
 import { Icon as IconifyIcon } from "@iconify/vue"
 const { iconName, customClass } = defineProps<{
   iconName: string
-  customClass: string
+  customClass?: string
 }>()
 
 // 判断是否是外部 icon

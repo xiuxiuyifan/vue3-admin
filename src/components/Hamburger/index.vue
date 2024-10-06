@@ -1,10 +1,9 @@
 <template>
-  <div class="hamburger-container">
+  <div class="hamburger-container" @click="handleClick">
     <svg-icon
       icon-name="ant-design:bars-outlined"
       custom-class="hamburger"
       :class="{ 'rotate-180': collapse }"
-      @click="handleClick"
     ></svg-icon>
   </div>
 </template>
@@ -14,7 +13,7 @@
   @apply leading-[50px] float-left cursor-pointer px-10px hover:(bg-black/5);
 }
 .hamburger {
-  @apply w-30px h-30px transition-transform duration-300;
+  @apply w-30px h-30px transition-transform duration-300 p-t-10px p-b-10px flex;
 }
 </style>
 

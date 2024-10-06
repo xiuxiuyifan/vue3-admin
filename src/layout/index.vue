@@ -23,8 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import Navbar from "./Navbar.vue"
-import Sidebar from "./Sidebar/index.vue"
 // eslint 不认识这个 api
 const instance = getCurrentInstance()!
 const handleClickBtn = () => {
@@ -37,6 +35,7 @@ const handleClickBtn = () => {
   @apply flex w-full h-full;
 
   .sidebar-container {
+    @apply bg-[var(--menu-bg)];
     :deep(.sidebar-container-menu:not(.el-menu--collapse)) {
       @apply w-[var(--sidebar-width)];
     }

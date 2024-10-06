@@ -94,7 +94,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
 ]
 
 // 静态路由和动态路由进行合并
-const routes = [...constantRoutes, ...asyncRoutes]
+export const routes = [...constantRoutes, ...asyncRoutes]
 export default createRouter({
   history: createWebHashHistory(),
   routes
