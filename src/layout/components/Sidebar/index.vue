@@ -24,7 +24,7 @@ import { useAppStore } from "@/stores/app"
 import varaibles from "@/style/variables.module.scss"
 import { storeToRefs } from "pinia"
 import SidebarItem from "./SidebarItem.vue"
-import { routes } from "@/router/index"
+import { routes } from "@/router"
 
 const route = useRoute()
 // 根据路由激活当前的菜单

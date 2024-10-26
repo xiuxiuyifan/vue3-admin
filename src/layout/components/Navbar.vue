@@ -1,10 +1,13 @@
 <template>
-  <div h-50px>
+  <div h-50px flex>
     <Hamburger
       @toggleCollapse="appStore.toggleSidebar"
       :collapse="sidebar.opened"
     ></Hamburger>
     <Breadcrumb />
+    <div flex flex-1 items-center justify-end pr-15px>
+      <Screenfull />
+    </div>
   </div>
 </template>
 
