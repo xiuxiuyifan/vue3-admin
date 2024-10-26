@@ -9,26 +9,13 @@
         <div class="tags-view">tagview</div>
       </div>
       <div class="app-main">
-        <h2>app main</h2>
-        <div i-ant-design:account-book-outlined icon></div>
-        <el-button type="primary" @click="handleClickBtn">你好</el-button>
-        <SvgIcon
-          icon-name="ant-design:account-book-twotone"
-          custom-class="text-red-500"
-        ></SvgIcon>
-        <RouterView />
+        <AppMain />
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-// eslint 不认识这个 api
-const instance = getCurrentInstance()!
-const handleClickBtn = () => {
-  instance?.proxy?.$message("恭喜你")
-}
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .app-wrapper {

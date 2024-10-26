@@ -48,8 +48,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/guide/index.vue"),
         meta: {
           icon: "ant-design:car-twotone",
-          title: "guide",
-          activeMenu: "/documentation/index"
+          title: "guide"
+          // activeMenu: "/documentation/index"
         }
       }
     ]
