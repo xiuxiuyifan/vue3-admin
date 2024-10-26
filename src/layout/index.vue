@@ -15,7 +15,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute()
+const matched = route.matched
+console.log(matched)
+</script>
 
 <style lang="scss" scoped>
 .app-wrapper {
@@ -44,7 +48,7 @@
     }
 
     .app-main {
-      @apply bg-red;
+      @apply bg-red overflow-hidden;
       min-height: calc(100vh - var(--navbar-height) - var(--tagsview-height));
     }
   }

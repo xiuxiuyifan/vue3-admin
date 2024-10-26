@@ -4,6 +4,7 @@
       @toggleCollapse="appStore.toggleSidebar"
       :collapse="sidebar.opened"
     ></Hamburger>
+    <Breadcrumb />
   </div>
 </template>
 

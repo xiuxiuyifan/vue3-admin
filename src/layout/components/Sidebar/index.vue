@@ -29,7 +29,7 @@ import { routes } from "@/router/index"
 const route = useRoute()
 // 根据路由激活当前的菜单
 const activeMenu = computed(() => {
-  return route.meta?.activeMenu || route.path
+  return route.meta.activeMenu || route.path
 })
 
 const appStore = useAppStore()

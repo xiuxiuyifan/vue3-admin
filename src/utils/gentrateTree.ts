@@ -1,11 +1,12 @@
 import { ITreeItemData } from "@/stores/menu.ts"
 
 export interface IMeta {
-  icon: string
   title: string
+  icon: string
   hidden?: boolean // 隐藏菜单
   alwaysShow?: boolean // 默认情况下，如果只有一个子路由就不显示父路由， alwaysShow 为 true 可始终显示父路由
-  activeMenu?: string
+  activeMenu?: string // 标识激活的菜单路径
+  breadcrumb?: boolean // 是否在 面包屑中展示
   [key: string]: string | boolean | undefined
 }
 export type ITreeItemDataWithMenuData = ITreeItemData & {
