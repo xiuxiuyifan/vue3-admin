@@ -48,7 +48,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/guide/index.vue"),
         meta: {
           icon: "ant-design:car-twotone",
-          title: "guide"
+          title: "guide",
+          activeMenu: "/documentation/index"
         }
       }
     ]
@@ -60,6 +61,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     meta: {
       icon: "ant-design:unlock-filled",
       title: "system"
+      // alwaysShow: true
     },
     children: [
       {
@@ -77,7 +79,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/system/role.vue"),
         meta: {
           icon: "ant-design:unlock-filled",
-          title: "menu"
+          title: "role"
         }
       },
       {
@@ -87,6 +89,21 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         meta: {
           icon: "ant-design:unlock-filled",
           title: "user"
+        }
+      }
+    ]
+  },
+  // 添加外部路由链接
+  {
+    path: "/external-link",
+    component: Layout,
+    children: [
+      {
+        path: "https://www.baidu.com",
+        redirect: "/",
+        meta: {
+          title: "External Link",
+          icon: "ant-design:link-outline"
         }
       }
     ]
