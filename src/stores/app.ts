@@ -21,7 +21,6 @@ export const useAppStore = defineStore(
     }
 
     const setSize = (size: Size) => {
-      console.log(size)
       state.size = size
     }
 
