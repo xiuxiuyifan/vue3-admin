@@ -13,7 +13,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/dashboard/index.vue"),
         meta: {
           title: "dashboard",
-          icon: "ant-design:windows-filled"
+          icon: "ant-design:windows-filled",
+          affix: true
         }
       }
     ]

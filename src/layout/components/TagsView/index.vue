@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { useTagsView } from "@/stores/tagsView.ts"
 import { storeToRefs } from "pinia"
-// import { RouteLocationNormalizedGeneric } from "vue-router"
 import { TabPaneName } from "element-plus"
+import { RouteLocationNormalizedGeneric, RouteRecordRaw } from "vue-router"
+import path from "path-browserify"
+import { routes } from "@/router"
 
 const route = useRoute()
 const router = useRouter()
 // const closeSelectedTag = (tag: RouteLocationNormalizedGeneric) => {}
 const tagsViewStore = useTagsView()
 const { visitedViews } = storeToRefs(tagsViewStore)
-const { deleteView } = tagsViewStore
+const { deleteView, addView } = tagsViewStore
 const activeTab = ref("")
 // 添加 tag
 const addTags = () => {
@@ -43,6 +45,11 @@ const removeTab = (name: TabPaneName) => {
 }
 // 初始化 tag ，根据路由将默认值添加到数组中
 const initTags = () => {
+  // 先将固定的 tags 加入到数组中
+  const affixTags = filterAffixTags(routes)
+  affixTags.forEach((tag) => {
+    addView(tag)
+  })
   addTags()
 }
 
@@ -50,6 +57,36 @@ const handleTabChange = (name: TabPaneName) => {
   router.push({
     path: name as string
   })
+}
+
+//判断路由是否是固定路由
+const isAffix = (tag: RouteLocationNormalizedGeneric): boolean => {
+  return !!tag.meta.affix
+}
+
+// 计算出路由中的固定路由
+const filterAffixTags = (
+  routes: RouteRecordRaw[],
+  basePath = "/"
+): RouteLocationNormalizedGeneric[] => {
+  const tags: RouteLocationNormalizedGeneric[] = []
+  // 遍历路由信息
+  for (const route of routes) {
+    // 检测
+    if (route.meta?.affix) {
+      const tagPath = path.join(basePath, route.path)
+      tags.push({
+        name: route.name,
+        path: tagPath,
+        meta: { ...route.meta }
+      } as RouteLocationNormalizedGeneric)
+    }
+    // 判断有孩子的话递归处理
+    if (route.children) {
+      tags.push(...filterAffixTags(route.children, route.path))
+    }
+  }
+  return tags
 }
 
 // 页面初始化加载完成
@@ -73,7 +110,6 @@ watch(
     <el-tabs
       v-model="activeTab"
       type="card"
-      closable
       @tab-remove="removeTab"
       @tab-change="handleTabChange"
     >
@@ -82,6 +118,7 @@ watch(
         :key="tag.path"
         :label="tag.meta.title"
         :name="tag.path"
+        :closable="!isAffix(tag)"
       >
       </el-tab-pane>
     </el-tabs>
