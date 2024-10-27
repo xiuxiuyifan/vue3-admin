@@ -1,10 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useTagsView } from "@/stores/tagsView.ts"
+import { storeToRefs } from "pinia"
+
+const tagsViewStore = useTagsView()
+const { cachedViews } = storeToRefs(tagsViewStore)
+
+const includes = computed(() => cachedViews.value as string[])
+</script>
 
 <template>
+  {{ includes }}
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
       <Transition mode="out-in" name="fade">
-        <KeepAlive>
+        <KeepAlive :include="includes">
           <component :is="Component"></component>
         </KeepAlive>
       </Transition>

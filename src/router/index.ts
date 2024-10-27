@@ -14,7 +14,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
         meta: {
           title: "dashboard",
           icon: "ant-design:windows-filled",
-          affix: true
+          affix: true,
+          noCache: true
         }
       }
     ]
