@@ -10,6 +10,7 @@
       <el-tooltip content="全局大小" placement="bottom">
         <SizeSelect />
       </el-tooltip>
+      <Avatar />
     </div>
   </div>
 </template>
