@@ -11,3 +11,5 @@ const installElementPlus = (app: App) => {
 }
 
 export default installElementPlus
+
+export type Size = "default" | "large" | "small"

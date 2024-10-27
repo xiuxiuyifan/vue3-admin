@@ -7,6 +7,9 @@
     <Breadcrumb />
     <div flex flex-1 items-center justify-end pr-15px>
       <Screenfull />
+      <el-tooltip content="全局大小" placement="bottom">
+        <SizeSelect />
+      </el-tooltip>
     </div>
   </div>
 </template>
