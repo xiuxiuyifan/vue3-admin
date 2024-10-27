@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="header">
         <Navbar />
-        <div class="tags-view">tagview</div>
+        <TagsView />
       </div>
       <div class="app-main">
         <AppMain />
@@ -15,11 +15,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const route = useRoute()
-const matched = route.matched
-console.log(matched)
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .app-wrapper {
@@ -36,19 +32,13 @@ console.log(matched)
     @apply flex flex-1 flex-col;
 
     .header {
-      @apply bg-cyan;
-
       .navbar {
-        @apply h-[var(--navbar-height)] bg-blue;
-      }
-
-      .tags-view {
-        @apply h-[var(--tagsview-height)] bg-cyan;
+        @apply h-[var(--navbar-height)];
       }
     }
 
     .app-main {
-      @apply bg-red overflow-hidden;
+      @apply overflow-hidden;
       min-height: calc(100vh - var(--navbar-height) - var(--tagsview-height));
     }
   }

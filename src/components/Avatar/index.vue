@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import avatar from "@/assets/vue.svg"
+import avatar from "@/assets/avatar.svg"
 const { proxy } = getCurrentInstance()!
 // const userStore =
 const logout = () => {
