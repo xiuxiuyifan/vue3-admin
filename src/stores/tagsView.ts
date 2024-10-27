@@ -19,8 +19,18 @@ export const useTagsView = defineStore("tags", () => {
     }
     visitedViews.value.push(newView)
   }
+
+  // 删除 view
+  const deleteView = (path: string) => {
+    // 先在访问过的里面找一下 index
+    const index = visitedViews.value.findIndex((v) => v.path === path)
+    if (~index) {
+      visitedViews.value.splice(index, 1)
+    }
+  }
   return {
     visitedViews,
-    addView
+    addView,
+    deleteView
   }
 })

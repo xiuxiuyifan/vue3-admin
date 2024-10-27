@@ -9,6 +9,7 @@ const router = useRouter()
 // const closeSelectedTag = (tag: RouteLocationNormalizedGeneric) => {}
 const tagsViewStore = useTagsView()
 const { visitedViews } = storeToRefs(tagsViewStore)
+const { deleteView } = tagsViewStore
 const activeTab = ref("")
 // 添加 tag
 const addTags = () => {
@@ -21,17 +22,31 @@ const addTags = () => {
 }
 
 // 判断是否激活
-// const isActive = (tag: RouteLocationNormalizedGeneric) =>
-//   tag.path === route.path
+const isActive = (path: string) => path === route.path
 
-const removeTab = () => {}
+const removeTab = (name: TabPaneName) => {
+  // 如果删掉的是当前激活的 需要导航到当前 list 中的最后一个
+  const index = visitedViews.value.findIndex((item) => item.path === name)
+  deleteView(name as string)
+
+  if (isActive(name as string)) {
+    if (~index) {
+      const prevIndex = index - 1
+      if (prevIndex >= 0) {
+        const path = visitedViews.value[prevIndex].path
+        router.push(path)
+      } else {
+        router.push("/")
+      }
+    }
+  }
+}
 // 初始化 tag ，根据路由将默认值添加到数组中
 const initTags = () => {
   addTags()
 }
 
 const handleTabChange = (name: TabPaneName) => {
-  console.log(name)
   router.push({
     path: name as string
   })
