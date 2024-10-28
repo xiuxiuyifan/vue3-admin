@@ -11,7 +11,8 @@ const router = useRouter()
 // const closeSelectedTag = (tag: RouteLocationNormalizedGeneric) => {}
 const tagsViewStore = useTagsView()
 const { visitedViews } = storeToRefs(tagsViewStore)
-const { deleteView, addView } = tagsViewStore
+const { deleteView, addView, delCachedView, delAllView, delOtherView } =
+  tagsViewStore
 const activeTab = ref("")
 // 添加 tag
 const addTags = () => {
@@ -103,6 +104,37 @@ watch(
     immediate: true
   }
 )
+
+const enum CommandType {
+  ALL = "all",
+  Other = "other",
+  Self = "self",
+  Refresh = "refresh"
+}
+
+const handleCommand = (
+  command: CommandType,
+  view: RouteLocationNormalizedGeneric
+) => {
+  switch (command) {
+    case CommandType.ALL:
+      delAllView()
+      break
+    case CommandType.Other:
+      delOtherView(view)
+      break
+    case CommandType.Self:
+      // 删除当前的
+      removeTab(view.path)
+      break
+    case CommandType.Refresh:
+      // 专门做刷新的一个路由，再通过这个路由跳转回来
+      delCachedView(view) // 清空 tagsview 里面的 缓存
+      // 跳转到刷新路由的页面
+      router.push("/redirect" + view.path)
+      break
+  }
+}
 </script>
 
 <template>
@@ -120,6 +152,25 @@ watch(
         :name="tag.path"
         :closable="!isAffix(tag)"
       >
+        <template v-slot:label>
+          <el-dropdown
+            placement="top-start"
+            trigger="contextmenu"
+            @command="(command) => handleCommand(command, tag)"
+          >
+            <span>{{ tag.meta.title }}</span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+                <el-dropdown-item command="other">关闭其他</el-dropdown-item>
+                <el-dropdown-item command="self" v-if="!tag.meta.affix"
+                  >关闭</el-dropdown-item
+                >
+                <el-dropdown-item command="refresh">刷新</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
       </el-tab-pane>
     </el-tabs>
   </div>

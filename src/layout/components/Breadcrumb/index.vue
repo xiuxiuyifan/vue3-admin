@@ -9,9 +9,9 @@ type PartialRouteLocationMatched = Partial<RouteLocationMatched>
 const levelList = ref<PartialRouteLocationMatched[]>([])
 
 // 判断是不是 dashboard 路由
-const isDashboard = (route: PartialRouteLocationMatched): boolean => {
-  return route.path === "/dashboard"
-}
+// const isDashboard = (route: PartialRouteLocationMatched): boolean => {
+//   return route.path === "/dashboard"
+// }
 
 const getBreadcrumb = () => {
   // 有 title 属性才能展示面包屑
@@ -19,7 +19,7 @@ const getBreadcrumb = () => {
     (item) => item.meta.title
   ) as PartialRouteLocationMatched[]
   // 第一个不是 dashboard 则需要在前面加上 dashboard
-  if (!isDashboard(matched[0])) {
+  if (matched[0]?.path !== "/dashboard") {
     matched = [
       {
         path: "/dashboard",

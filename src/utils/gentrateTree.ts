@@ -9,6 +9,8 @@ export interface IMeta {
   breadcrumb?: boolean // 是否在 面包屑中展示
   [key: string]: string | boolean | undefined
 }
+
+// 联合操作，表示两个对象里面的属性都要存在
 export type ITreeItemDataWithMenuData = ITreeItemData & {
   meta: IMeta
 }

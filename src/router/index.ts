@@ -19,6 +19,20 @@ const constantRoutes: Array<RouteRecordRaw> = [
         }
       }
     ]
+  },
+  {
+    path: "/redirect",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        // 跳转到 /redirect/a/b/c/d?query=1
+        path: "/redirect/:path(.*)",
+        component: () => import("@/views/redirect/index.vue")
+      }
+    ]
   }
 ]
 
