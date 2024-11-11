@@ -26,10 +26,18 @@ const isExt = computed(() => isExternal(to))
 const componentType = computed(() => {
   return isExt.value ? "a" : "router-link"
 })
+
+const handleXx = () => {
+  console.log("hihihi")
+}
 </script>
 
 <template>
-  <component :is="componentType" v-bind="componentProps">
+  <component
+    :is="componentType"
+    v-bind="componentProps"
+    @click.capture="handleXx"
+  >
     <slot />
   </component>
 </template>

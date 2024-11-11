@@ -3,8 +3,8 @@ import { useTagsView } from "@/stores/tagsView.ts"
 import { storeToRefs } from "pinia"
 import { TabPaneName } from "element-plus"
 import { RouteLocationNormalizedGeneric, RouteRecordRaw } from "vue-router"
-import path from "path-browserify"
 import { routes } from "@/router"
+import { join } from "path-browserify"
 
 const route = useRoute()
 const router = useRouter()
@@ -75,7 +75,7 @@ const filterAffixTags = (
   for (const route of routes) {
     // 检测
     if (route.meta?.affix) {
-      const tagPath = path.join(basePath, route.path)
+      const tagPath = join(basePath, route.path)
       tags.push({
         name: route.name,
         path: tagPath,
@@ -179,6 +179,11 @@ const handleCommand = (
 <style scoped lang="scss">
 .tags-view-container {
   @apply w-full overflow-hidden  h-[var(--tagsview-height)] shadow-sm shadow-gray-300 bg-gray-100;
+  :deep(.el-tabs__nav .is-active) {
+    .el-dropdown {
+      color: var(--el-color-primary);
+    }
+  }
 }
 .tags-view-item {
   @apply inline-block h-28px leading-28px border-solid border-gray px-3px mx-3px box-border text-black;

@@ -7,9 +7,7 @@ const { cachedViews } = storeToRefs(tagsViewStore)
 
 const includes = computed(() => cachedViews.value as string[])
 </script>
-
 <template>
-  {{ includes }}
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
       <Transition mode="out-in" name="fade">

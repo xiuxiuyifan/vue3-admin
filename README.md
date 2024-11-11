@@ -193,6 +193,22 @@ pnpm install vue-router
 ### pinia 持久化
 
 
+### vue-router
+
+```ts
+// 给模块添加额外类型 ， ts中的接口合并
+declare module "vue-router" {
+  interface RouteMeta {
+    icon?: string
+    title?: string
+    hidden?: boolean
+    alwaysShow?: boolean
+    breadcrumb?: boolean
+    affix?: boolean
+    noCache?: boolean
+  }
+}
+```
 
 
 
@@ -219,6 +235,39 @@ element-plus主题色替换的三个步骤  实现原理  （分为三步）
 + 定义我们要替换之后的样式
 + 在原样式中，利用正则替换新样式
 + 把替换后的样式写入到 style 标签中
+
+## 可以借鉴之处
+1. sidebar 递归路由拼接， 父子路由拼接
+2. tagsview 实现右键刷新当前路由页面
+3. 泛型函数的写法
+  ```ts
+    const settings = reactive({
+      theme: varaibles.theme // theme 是用户选择的主题
+    })
+    type ISettings = typeof settings
+    
+    // 泛型函数
+    const changeSetting = <T extends keyof ISettings>({
+                                                      key,
+                                                      value
+                                                    }: {
+    key: T
+    value: ISettings[T]
+    }) => {
+    settings[key] = value
+    }
+```
+
+4. 动态改变主题颜色
+watch store 中的 theme 变量，变化之后用 js 修改 css root 中的 element 定义的样式变量
+
+var color = require('css-color-function');
+
+color.convert('color(red tint(50%))');
+
+// "rgb(255, 128, 128)"
+将一个颜色
+5. 
 
 
 

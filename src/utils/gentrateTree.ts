@@ -12,5 +12,5 @@ export interface IMeta {
 
 // 联合操作，表示两个对象里面的属性都要存在
 export type ITreeItemDataWithMenuData = ITreeItemData & {
-  meta: IMeta
+  meta?: IMeta
 }

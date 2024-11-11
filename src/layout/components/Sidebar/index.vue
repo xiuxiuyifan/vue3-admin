@@ -7,7 +7,7 @@
     mode="vertical"
     :background-color="varaibles.menuBg"
     :text-color="varaibles.menuText"
-    :active-text-color="varaibles.menuActiveText"
+    :active-text-color="settingStore.theme"
     :collapse-transition="true"
   >
     <SidebarItem
@@ -25,6 +25,7 @@ import varaibles from "@/style/variables.module.scss"
 import { storeToRefs } from "pinia"
 import SidebarItem from "./SidebarItem.vue"
 import { routes } from "@/router"
+import useSettingStore from "@/stores/settings.ts"
 
 const route = useRoute()
 // 根据路由激活当前的菜单
@@ -33,6 +34,7 @@ const activeMenu = computed(() => {
 })
 
 const appStore = useAppStore()
+const settingStore = useSettingStore()
 const { sidebar } = storeToRefs(appStore)
 </script>
 
