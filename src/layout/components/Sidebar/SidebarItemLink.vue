@@ -26,18 +26,11 @@ const isExt = computed(() => isExternal(to))
 const componentType = computed(() => {
   return isExt.value ? "a" : "router-link"
 })
-
-const handleXx = () => {
-  console.log("hihihi")
-}
 </script>
 
 <template>
-  <component
-    :is="componentType"
-    v-bind="componentProps"
-    @click.capture="handleXx"
-  >
+  <!--  外部和内部的分开渲染-->
+  <component :is="componentType" v-bind="componentProps">
     <slot />
   </component>
 </template>

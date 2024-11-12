@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="header">
         <Navbar @showSetting="openSetting" />
-        <TagsView />
+        <TagsView v-if="settingStore.settings.tagsView" />
       </div>
       <div class="app-main">
         <AppMain />
@@ -20,11 +20,23 @@
 </template>
 
 <script setup lang="ts">
+import useSettingStore from "@/stores/settings.ts"
+import varaibles from "@/style/variables.module.scss"
+
 const showSetting = ref(false)
+const settingStore = useSettingStore()
 // 打开设置面板
 const openSetting = () => {
   showSetting.value = true
 }
+
+const outerHeight = computed(() => {
+  return (
+    (settingStore.settings.tagsView
+      ? parseInt(varaibles.navBarHeight) + parseInt(varaibles.tagsViewHeight)
+      : parseInt(varaibles.navBarHeight)) + "px"
+  )
+})
 </script>
 
 <style lang="scss" scoped>
@@ -49,7 +61,7 @@ const openSetting = () => {
 
     .app-main {
       @apply overflow-hidden;
-      min-height: calc(100vh - var(--navbar-height) - var(--tagsview-height));
+      min-height: calc(100vh - v-bind(outerHeight));
     }
   }
 }

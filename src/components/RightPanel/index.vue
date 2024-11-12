@@ -26,7 +26,12 @@ const handleClose = () => {
 </script>
 
 <template>
-  <el-drawer :model-value="modelValue" :title="title" @close="handleClose">
+  <el-drawer
+    :size="400"
+    :model-value="modelValue"
+    :title="title"
+    @close="handleClose"
+  >
     <slot />
   </el-drawer>
 </template>

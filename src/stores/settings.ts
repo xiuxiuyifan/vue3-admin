@@ -5,7 +5,9 @@ const useSettingStore = defineStore(
   "settings",
   () => {
     const settings = reactive({
-      theme: varaibles.theme // theme 是用户选择的主题
+      theme: varaibles.theme, // theme 是用户选择的主题
+      tagsView: true, // 是否显示 标签栏
+      sidebarLogo: true // 是否显示 logo
     })
     type ISettings = typeof settings
 
