@@ -11,6 +11,15 @@ const tagsView = computed({
     settingStore.changeSetting({ key: "tagsView", value: value })
   }
 })
+
+const isShowLogo = computed({
+  get() {
+    return settingStore.settings.sidebarLogo
+  },
+  set(value: boolean) {
+    settingStore.changeSetting({ key: "sidebarLogo", value: value })
+  }
+})
 </script>
 
 <template>
@@ -21,6 +30,10 @@ const tagsView = computed({
   <div class="drawer-item">
     <span>是否展示标签栏</span>
     <el-switch v-model="tagsView" />
+  </div>
+  <div class="drawer-item">
+    <span>是否展示Logo</span>
+    <el-switch v-model="isShowLogo" />
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 <template>
+  <logo :collapse="sidebar.opened" v-if="settingStore.settings.sidebarLogo" />
   <el-menu
     router
     class="sidebar-container-menu"

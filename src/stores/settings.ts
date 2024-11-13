@@ -17,7 +17,7 @@ const useSettingStore = defineStore(
       value
     }: {
       key: T
-      value: ISettings[T]
+      value: ISettings[T] // 取 value 的类型
     }) => {
       settings[key] = value
     }
@@ -33,7 +33,7 @@ const useSettingStore = defineStore(
   {
     persist: {
       storage: window.sessionStorage,
-      pick: ["settings.theme"]
+      pick: ["settings.theme", "settings.tagsView", "settings.sidebarLogo"]
     }
   }
 )

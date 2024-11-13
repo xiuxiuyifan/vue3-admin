@@ -8,6 +8,6 @@ export interface IVaraibles {
   theme: string
 }
 
-export const varaibles: IVaraibles
+const varaibles: IVaraibles
 
 export default varaibles
