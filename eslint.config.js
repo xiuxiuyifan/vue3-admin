@@ -35,7 +35,8 @@ export default [
   {
     rules: {
       "no-console": "warn",
-      "vue/multi-word-component-names": "off"
+      "vue/multi-word-component-names": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     }
   },
   eslintPluginPrettierRecommended

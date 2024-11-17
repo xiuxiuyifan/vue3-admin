@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { UserLoginData, login as loginAPi } from "@/api/user.ts"
-import { setToken } from "@/utils/auth.ts"
+import { removeToken, setToken } from "@/utils/auth.ts"
+import { useTagsView } from "@/stores/tagsView.ts"
 
 export const useUserStore = defineStore("user", () => {
   const state = reactive({
@@ -22,8 +23,20 @@ export const useUserStore = defineStore("user", () => {
       return Promise.reject(e)
     }
   }
+
+  const { delAllView } = useTagsView()
+
+  const logout = () => {
+    // 清空 本地存储里面的 token 和 store 里面的 token
+    state.token = ""
+    removeToken()
+    // 清空所有的 tagsview
+    delAllView()
+  }
+
   return {
     state,
-    login
+    login,
+    logout
   }
 })

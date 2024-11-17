@@ -11,6 +11,7 @@ import "@/style/index.scss"
 import "virtual:uno.css"
 import "normalize.css/normalize.css"
 import installElementPlus from "./plugins/element"
+import "./permission"
 
 const app = createApp(App)
 

@@ -27,6 +27,7 @@
           show-password
           v-model="loginForm.password"
           prop="password"
+          @keyup.enter="handleLogin"
         >
           <template #prepend>
             <span class="svg-container">
@@ -37,7 +38,12 @@
       </el-form-item>
 
       <!-- 登录按钮 -->
-      <el-button type="primary" @click="handleLogin" w-full mb-30px
+      <el-button
+        type="primary"
+        @click="handleLogin"
+        :loading="loading"
+        w-full
+        mb-30px
         >登录</el-button
       >
     </el-form>
@@ -53,24 +59,31 @@ const router = useRouter()
 const { redirect, otherQuery } = useRouteQuery()
 const loginState = reactive({
   loginForm: {
-    username: "",
-    password: ""
+    username: "admin",
+    password: "123456"
   },
   loginRules: {
     username: [{ required: true, trigger: "blur", message: "请输入用户名" }],
     password: [{ required: true, trigger: "blur", message: "请输入密码" }]
   }
 })
+
+const loading = ref(false)
 const loginFormInstance = useTemplateRef<FormInstance>("form")
 const { loginForm, loginRules } = loginState
 
 const handleLogin = () => {
   loginFormInstance.value?.validate(async (valid) => {
     if (valid) {
-      await login(loginForm)
-
-      // 解析出一个重定向的路径  + 其他的查询参数
-      router.push({ path: redirect.value || "/", query: otherQuery.value })
+      try {
+        loading.value = true
+        await login(loginForm)
+        loading.value = false
+        // 解析出一个重定向的路径  + 其他的查询参数
+        router.push({ path: redirect.value || "/", query: otherQuery.value })
+      } finally {
+        loading.value = false
+      }
     }
   })
 }

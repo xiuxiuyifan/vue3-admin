@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import avatar from "@/assets/avatar.svg"
-import router from "@/router"
-// const { proxy } = getCurrentInstance()!
-// const userStore =
+import { useUserStore } from "@/stores/user.ts"
+const { proxy } = getCurrentInstance()!
+const userStore = useUserStore()
 const logout = () => {
-  router.push("/login")
+  // 调用 退出接口
+  userStore.logout()
+  proxy?.$message.success("退出登录成功！")
+  window.location.reload()
 }
 </script>
 
