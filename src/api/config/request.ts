@@ -1,6 +1,7 @@
 import axios from "axios"
 import { getToken } from "@/utils/auth.ts"
 import { ElMessage } from "element-plus"
+import { useUserStore } from "@/stores/user.ts"
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
@@ -33,7 +34,14 @@ service.interceptors.response.use(
     return response.data
   },
   (error) => {
-    console.log(error)
+    const res = error.response
+    if (res && res.status === 401) {
+      // 未登录，或者 token 失效
+      const userStore = useUserStore()
+      userStore.resetToken()
+      window.location.reload()
+    }
+    ElMessage.error(error.message)
     return Promise.reject(error)
   }
 )
