@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router"
 import Layout from "@/layout/index.vue"
+import Login from "@/views/login/index.vue"
 
 const constantRoutes: Array<RouteRecordRaw> = [
   {
@@ -37,6 +38,14 @@ const constantRoutes: Array<RouteRecordRaw> = [
 ]
 
 const asyncRoutes: Array<RouteRecordRaw> = [
+  // 非 layout 的路由
+  {
+    path: "/login",
+    component: Login,
+    meta: {
+      hidden: true // 配置为隐藏路由
+    }
+  },
   {
     path: "/documentation",
     component: Layout,

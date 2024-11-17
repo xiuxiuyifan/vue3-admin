@@ -32,6 +32,6 @@ defineProps({
   @apply opacity-0;
 }
 .logo-fade-enter-active {
-  @apply transition-opacity duration-500;
+  @apply transition-opacity duration-300;
 }
 </style>
