@@ -10,10 +10,15 @@ const autoImportConfig = require("./.eslintrc-auto-import.json")
 
 export default [
   // 检测文件的格式
-  { files: ["**/*.{js,mjs,cjs,ts,vue}"] },
+  { files: ["**/*.{js,mjs,cjs,ts,vue,.tsx}"] },
   // 检测不同环境的全局变量
   {
     languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      },
       globals: {
         ...globals.browser,
         ...globals.node,

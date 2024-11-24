@@ -7,6 +7,7 @@ import ElementPlus from "unplugin-element-plus/vite"
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+import vueJsx from "@vitejs/plugin-vue-jsx"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -37,7 +38,8 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     }),
     // 导入样式 不需要引入
-    ElementPlus({})
+    ElementPlus({}),
+    vueJsx()
   ],
   server: {
     proxy: {

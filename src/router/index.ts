@@ -38,7 +38,6 @@ const constantRoutes: Array<RouteRecordRaw> = [
 ]
 
 const asyncRoutes: Array<RouteRecordRaw> = [
-  // 非 layout 的路由
   {
     path: "/login",
     component: Login,
@@ -101,7 +100,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: "role",
         name: "role",
-        component: () => import("@/views/system/role.vue"),
+        component: () => import("@/views/system/role/index.vue"),
         meta: {
           icon: "ant-design:unlock-filled",
           title: "role"

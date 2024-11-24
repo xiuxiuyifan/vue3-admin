@@ -1,8 +1,10 @@
 import router from "@/router"
 import nProgress from "nprogress"
+import "nprogress/nprogress.css"
+
 import { getToken } from "@/utils/auth.ts"
 
-nProgress.configure({})
+nProgress.configure({ showSpinner: false })
 const whiteList = ["/login"]
 
 router.beforeEach((to) => {
