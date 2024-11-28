@@ -24,9 +24,24 @@ export interface RoleParams {
 }
 
 export const getRoles = (
-  params = { pageNum: 0, pageSize: 10 }
+  params = { pageNum: 1, pageSize: 10 }
 ): Promise<ApiResponse<IRoleState>> => {
   return request.get("/role", {
     params
   })
+}
+
+export const addRole = (data: IRole): Promise<ApiResponse> => {
+  return request.post("/role", data)
+}
+
+export const updateRole = (
+  id: number,
+  data: Partial<IRole>
+): Promise<ApiResponse> => {
+  return request.put(`/role/${id}`, data)
+}
+
+export const deleteRole = (id: string): Promise<ApiResponse> => {
+  return request.delete(`/role/${id}`)
 }

@@ -13,7 +13,7 @@ useGenerateTheme()
 
 <template>
   <div>
-    <el-config-provider :size="size" :locale="zhCn">
+    <el-config-provider :size="size" :z-index="3000" :locale="zhCn">
       <RouterView />
     </el-config-provider>
   </div>
