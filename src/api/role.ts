@@ -23,9 +23,7 @@ export interface RoleParams {
   pageSize: number
 }
 
-export const getRoles = (
-  params = { pageNum: 1, pageSize: 10 }
-): Promise<ApiResponse<IRoleState>> => {
+export const getRoles = (params): Promise<ApiResponse<IRoleState>> => {
   return request.get("/role", {
     params
   })

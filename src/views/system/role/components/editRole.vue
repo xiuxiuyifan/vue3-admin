@@ -16,12 +16,11 @@ const initForm = (): IRole => {
 }
 
 const handleReset = () => {
-  ruleForm.value = initForm()
   // 并且清除表单校验信息
-  nextTick(() => {
-    formRef.value?.clearValidate(Object.keys(initForm()))
-  })
+  formRef.value?.clearValidate(Object.keys(initForm()))
+  ruleForm.value = initForm()
 }
+
 const ruleForm = ref<IRole>(initForm())
 
 const emit = defineEmits(["submit"])
@@ -41,13 +40,11 @@ const { data, actionType } = defineProps({
 watch(
   () => data,
   (newVal: IRole) => {
-    console.log("watch 到了", newVal)
     ruleForm.value = {
       ...newVal
     }
     // 如果是新增则清除校验规则
     if (actionType === "add") {
-      console.log("add")
       handleReset()
     }
   },
@@ -86,7 +83,6 @@ const submitForm = () => {
   formRef.value?.validate((valid) => {
     if (valid) {
       emit("submit", ruleForm.value)
-      handleReset()
     }
     loading.value = false
   })

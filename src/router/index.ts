@@ -109,7 +109,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: "user",
         name: "user",
-        component: () => import("@/views/system/user.vue"),
+        component: () => import("@/views/system/user/index.vue"),
         meta: {
           icon: "ant-design:unlock-filled",
           title: "user"

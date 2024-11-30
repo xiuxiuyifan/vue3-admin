@@ -2,24 +2,38 @@
   <div p-20px>
     <!--  角色给菜单授权-->
     <div p-b-10px>
-      <el-button :icon="AddIcon" @click="handleAddRole">添加角色</el-button>
+      <el-button :icon="AddIcon" @click="handleAddRole">添加用户</el-button>
       <el-button :icon="SearchIcon" @click="initData">搜索</el-button>
       <el-button :icon="ResetIcon" @click="initData">重置</el-button>
     </div>
     <el-table v-loading="loading" :data="tableData" style="width: 100%" border>
       <el-table-column
         fixed
-        prop="name"
-        label="角色名称"
+        prop="username"
+        label="用户名"
         show-overflow-tooltip
       />
-      <el-table-column prop="description" label="描述" show-overflow-tooltip />
-      <el-table-column prop="is_default" label="是否默认角色" align="center">
+      <el-table-column prop="mobile" label="手机" show-overflow-tooltip />
+      <el-table-column prop="email" label="邮箱" show-overflow-tooltip />
+      <el-table-column prop="status" label="状态" width="100" align="center">
         <template #default="{ row }">
-          <el-tag type="primary" v-if="row.is_default">是</el-tag>
-          <el-tag type="danger" v-else>否</el-tag>
+          <el-tag type="primary" v-if="row.status">正常</el-tag>
+          <el-tag type="danger" v-else>禁用</el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="roleIds" label="角色">
+        <template #default="{ row }">
+          <el-tag
+            type="primary"
+            v-for="(item, index) in row.roles"
+            :key="index"
+            m-r-4px
+            m-b-2px
+            >{{ item.name }}</el-tag
+          >
+        </template>
+      </el-table-column>
+      <el-table-column prop="description" label="描述" show-overflow-tooltip />
       <el-table-column prop="createdAt" label="创建时间" show-overflow-tooltip>
         <template #default="{ row }">
           {{ formatTime(row.createdAt) }}
@@ -30,11 +44,8 @@
           {{ formatTime(row.updatedAt) }}
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="170">
+      <el-table-column fixed="right" label="操作" width="100">
         <template #default="{ row }">
-          <el-button link type="primary" size="small" @click="handleClick">
-            菜单权限
-          </el-button>
           <el-button
             link
             type="primary"
@@ -65,12 +76,12 @@
     </div>
     <right-panel
       v-model="showEditRole"
-      :title="actionType === 'add' ? '新增角色' : '编辑角色'"
+      :title="actionType === 'add' ? '新增用户' : '编辑用户'"
     >
       <edit-role
         @submit="handleSubmitRole"
         :actionType="actionType"
-        :data="roleData"
+        :data="userData"
       />
     </right-panel>
   </div>
@@ -78,27 +89,40 @@
 
 <script lang="tsx" setup>
 import SvgIcon from "@/components/SvgIcon/index.vue"
-import { addRole, deleteRole, getRoles, IRole, updateRole } from "@/api/role.ts"
 import { formatTime } from "@/utils/date.ts"
 import { ActionType } from "@/types/type.ts"
-import EditRole from "@/views/system/role/components/editRole.vue"
+import EditRole from "@/views/system/user/components/editUser.vue"
+import {
+  addUser,
+  deleteUser,
+  getUsers,
+  IUserInfo,
+  updateUser
+} from "@/api/user.ts"
 
 const AddIcon = <SvgIcon iconName="ant-design:plus-outlined" />
 const SearchIcon = <SvgIcon iconName="ant-design:search-outlined" />
 const ResetIcon = <SvgIcon iconName="ant-design:undo-outlined" />
 const { proxy } = getCurrentInstance()
 
-const handleClick = () => {
-  console.log("click")
+const initUserData = (): IUserInfo => {
+  return {
+    username: "",
+    password: "",
+    mobile: "",
+    email: "",
+    status: false,
+    description: "",
+    roleIds: []
+  }
 }
-
-const tableData = ref<IRole[]>([])
+const tableData = ref<IUserInfo[]>([])
 
 const loading = ref(false)
 
 const showEditRole = ref(false)
 const actionType = ref<ActionType>("add")
-const roleData = ref<IRole>({ name: "", description: "", is_default: 0 })
+const userData = ref<IUserInfo>(initUserData())
 
 // 分页
 const currentPage = ref(1)
@@ -119,20 +143,19 @@ const handleCurrentChange = (val: number) => {
 const handleAddRole = () => {
   showEditRole.value = true
   actionType.value = "add"
-  roleData.value = { name: "", description: "", is_default: 0 }
+  userData.value = initUserData()
 }
 
-const handleEditRole = (role: IRole) => {
+const handleEditRole = (user: IUserInfo) => {
   showEditRole.value = true
-  console.log(role)
   actionType.value = "edit"
-  roleData.value = { ...unref(role) }
-  console.log(roleData.value)
+  const roleIds = user.roles.map((item) => item.id)
+  userData.value = { ...unref(user), roleIds }
 }
 
-const handleDeleteRole = (row: IRole) => {
+const handleDeleteRole = (row: IUserInfo) => {
   proxy
-    .$confirm(`您确认要删除角色${row.name}?`, "提示", {
+    .$confirm(`您确认要删除用户${row.username}?`, "提示", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       type: "warning"
@@ -140,7 +163,7 @@ const handleDeleteRole = (row: IRole) => {
     .then(() => {
       // 调用删除接口
       if (!row.id) return
-      deleteRole(row.id).then((res) => {
+      deleteUser(row.id).then((res) => {
         if (res.code === 0) {
           proxy.$message({
             type: "success",
@@ -158,28 +181,28 @@ const handleDeleteRole = (row: IRole) => {
     })
 }
 
-const addNewRole = (data: IRole) => {
-  addRole(data).then((res) => {
+const addNewUser = (data: IUserInfo) => {
+  addUser(data).then((res) => {
     if (res.code === 0) {
-      proxy?.$message.success("角色添加成功！")
+      proxy?.$message.success("用户添加成功！")
       showEditRole.value = false
-      roleData.value = { name: "", description: "", is_default: 0 }
+      userData.value = initUserData()
       initData()
     }
   })
 }
 
-const handleSubmitRole = (data: IRole) => {
+const handleSubmitRole = (data: IUserInfo) => {
   // 判断是新增还是编辑
   if (actionType.value === "add") {
-    addNewRole(data)
+    addNewUser(data)
   } else if (actionType.value === "edit") {
-    if (roleData.value.id) {
-      updateRole(+roleData.value.id, data).then((res) => {
+    if (userData.value.id) {
+      updateUser(+userData.value.id, data).then((res) => {
         if (res.code === 0) {
-          proxy?.$message.success("角色编辑成功！")
+          proxy?.$message.success("用户编辑成功！")
           showEditRole.value = false
-          roleData.value = { name: "", description: "", is_default: 0 }
+          userData.value = initUserData()
           initData()
         }
       })
@@ -197,8 +220,8 @@ const initData = async () => {
       pageSize: pageSize.value,
       pageNum: currentPage.value - 1
     }
-    let res = getRoles(params)
-    tableData.value = (await res).data.roles
+    let res = getUsers(params)
+    tableData.value = (await res).data.users
     total.value = (await res).data.count
   } finally {
     loading.value = false
