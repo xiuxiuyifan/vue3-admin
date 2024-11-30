@@ -32,7 +32,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="170">
         <template #default="{ row }">
-          <el-button link type="primary" size="small" @click="handleClick">
+          <el-button link type="primary" size="small" @click="handleSetRole">
             菜单权限
           </el-button>
           <el-button
@@ -88,8 +88,8 @@ const SearchIcon = <SvgIcon iconName="ant-design:search-outlined" />
 const ResetIcon = <SvgIcon iconName="ant-design:undo-outlined" />
 const { proxy } = getCurrentInstance()
 
-const handleClick = () => {
-  console.log("click")
+const handleSetRole = () => {
+  return
 }
 
 const tableData = ref<IRole[]>([])
@@ -124,10 +124,8 @@ const handleAddRole = () => {
 
 const handleEditRole = (role: IRole) => {
   showEditRole.value = true
-  console.log(role)
   actionType.value = "edit"
   roleData.value = { ...unref(role) }
-  console.log(roleData.value)
 }
 
 const handleDeleteRole = (row: IRole) => {
