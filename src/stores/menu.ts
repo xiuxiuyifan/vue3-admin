@@ -1,5 +1,5 @@
 import { MenuData } from "@/api/menu.ts"
-import { IMeta } from "@/utils/gentrateTree.ts"
+import { IMeta } from "@/utils/tree.ts"
 
 export interface ITreeItemData extends MenuData {
   meta: IMeta

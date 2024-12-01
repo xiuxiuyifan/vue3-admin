@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import path from "path-browserify"
-import { ITreeItemDataWithMenuData } from "@/utils/gentrateTree.ts"
+import { ITreeItemDataWithMenuData } from "@/utils/tree.ts"
 import { isExternal } from "@/utils/validate.ts"
 // 如果只有一个儿子，则直接渲染这个儿子即可
 // 如果菜单对应的 children 有多个，则使用 el-submenu 去渲染， 循环路由的孩子，渲染交给 sidebarItem 递归去渲染

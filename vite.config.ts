@@ -32,7 +32,11 @@ export default defineConfig({
     Components({
       // 针对 src/components 下面的目录实现自动导入
       // 布局组件也希望自动导入
-      dirs: ["src/components", "src/layout/components"],
+      dirs: [
+        "src/components",
+        "src/layout/components",
+        "src/views/**/components"
+      ],
       dts: "src/components.d.ts",
       // ⽣成的组件的类型放到这⾥
       resolvers: [ElementPlusResolver()]

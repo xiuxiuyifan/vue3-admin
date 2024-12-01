@@ -91,7 +91,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
       {
         path: "menu",
         name: "menu",
-        component: () => import("@/views/system/menu.vue"),
+        component: () => import("@/views/system/menu/index.vue"),
         meta: {
           icon: "ant-design:unlock-filled",
           title: "menu"

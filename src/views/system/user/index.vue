@@ -75,7 +75,7 @@
       />
     </div>
     <right-panel
-      v-model="showEditRole"
+      v-model="showEditUser"
       :title="actionType === 'add' ? '新增用户' : '编辑用户'"
     >
       <edit-role
@@ -120,7 +120,7 @@ const tableData = ref<IUserInfo[]>([])
 
 const loading = ref(false)
 
-const showEditRole = ref(false)
+const showEditUser = ref(false)
 const actionType = ref<ActionType>("add")
 const userData = ref<IUserInfo>(initUserData())
 
@@ -141,13 +141,13 @@ const handleCurrentChange = (val: number) => {
 }
 
 const handleAddRole = () => {
-  showEditRole.value = true
+  showEditUser.value = true
   actionType.value = "add"
   userData.value = initUserData()
 }
 
 const handleEditRole = (user: IUserInfo) => {
-  showEditRole.value = true
+  showEditUser.value = true
   actionType.value = "edit"
   const roleIds = user.roles.map((item) => item.id)
   userData.value = { ...unref(user), roleIds }
@@ -185,7 +185,7 @@ const addNewUser = (data: IUserInfo) => {
   addUser(data).then((res) => {
     if (res.code === 0) {
       proxy?.$message.success("用户添加成功！")
-      showEditRole.value = false
+      showEditUser.value = false
       userData.value = initUserData()
       initData()
     }
@@ -201,7 +201,7 @@ const handleSubmitRole = (data: IUserInfo) => {
       updateUser(+userData.value.id, data).then((res) => {
         if (res.code === 0) {
           proxy?.$message.success("用户编辑成功！")
-          showEditRole.value = false
+          showEditUser.value = false
           userData.value = initUserData()
           initData()
         }

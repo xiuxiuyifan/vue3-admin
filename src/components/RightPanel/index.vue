@@ -31,6 +31,7 @@ const handleClose = () => {
     :model-value="modelValue"
     :title="title"
     @close="handleClose"
+    v-bind="$attrs"
   >
     <slot />
   </el-drawer>
