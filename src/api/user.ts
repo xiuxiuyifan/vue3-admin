@@ -58,3 +58,13 @@ export const deleteUser = (id: string): Promise<ApiResponse> => {
 export const getUsers = (params): Promise<ApiResponse> => {
   return service.get("/user", params)
 }
+
+export const getPermission = (): Promise<ApiResponse> => {
+  return service.get("/user/permission")
+}
+
+export const getUserInfo = (): Promise<ApiResponse> => {
+  return service.post("/auth/info")
+}
+
+// 获取 角色对应的权限

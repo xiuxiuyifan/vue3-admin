@@ -48,6 +48,7 @@ declare module 'vue' {
     Logo: typeof import('./layout/components/Sidebar/logo.vue')['default']
     Navbar: typeof import('./layout/components/Navbar.vue')['default']
     RightPanel: typeof import('./components/RightPanel/index.vue')['default']
+    RoleMenu: typeof import('./views/system/role/components/roleMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Screenfull: typeof import('./components/Screenfull/index.vue')['default']

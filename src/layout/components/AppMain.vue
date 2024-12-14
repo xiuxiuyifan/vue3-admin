@@ -21,7 +21,7 @@ const includes = computed(() => cachedViews.value as string[])
 <style scoped lang="scss">
 .fade-enter-active,
 .fade-leave-active {
-  @apply transition-all duration-300;
+  @apply transition-all duration-500;
 }
 .fade-enter-form {
   @apply opacity-0 translate-x-[-50px];

@@ -15,12 +15,22 @@ import {
 import { generateTree, ITreeItemData, traverseTree } from "@/utils/tree.ts"
 
 const AddIcon = <SvgIcon iconName="ant-design:plus-outlined" />
-const DownIcon = <SvgIcon iconName="ant-design:down-outlined" />
 
 const { proxy } = getCurrentInstance()
 
 const treeRef = ref(null)
 const expandTree = ref(false)
+
+const DownIcon = () => {
+  return (
+    <SvgIcon
+      style={{
+        transform: expandTree.value ? "rotate(180deg)" : "rotate(0deg)"
+      }}
+      iconName="ant-design:down-outlined"
+    />
+  )
+}
 
 // 菜单拖拽，一般不能把 子菜单拖拽成为一级菜单
 // 一级菜单也不能拖拽成为 子菜单
@@ -37,6 +47,7 @@ const handleDrop = () => {
   updateMenuByTree(data.value).then((res) => {
     if (res.code == 0) {
       proxy?.$message.success("更新成功！")
+      expandTree.value = false
       initData()
     }
   })
@@ -177,7 +188,7 @@ onMounted(() => {
   <div class="menu">
     <div p-b-10px>
       <el-button :icon="AddIcon" @click="handleAddMenu">新增菜单</el-button>
-      <el-button :icon="AddIcon" @click="expandAll">{{
+      <el-button :icon="DownIcon" @click="expandAll">{{
         expandTree ? "折叠所有" : "展开所有"
       }}</el-button>
     </div>
@@ -188,7 +199,6 @@ onMounted(() => {
       :data="data"
       draggable
       highlight-current
-      :default-expand-all="defaultExpandAll"
       node-key="id"
       @node-drop="handleDrop"
     >

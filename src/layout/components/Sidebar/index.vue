@@ -12,10 +12,9 @@
     :collapse-transition="true"
   >
     <SidebarItem
-      v-for="route in routes"
+      v-for="route in userStore.state.menu"
       :key="route.path"
       :item="route"
-      :base-path="route.path"
     ></SidebarItem>
   </el-menu>
 </template>
@@ -27,6 +26,7 @@ import { storeToRefs } from "pinia"
 import SidebarItem from "./SidebarItem.vue"
 import { routes } from "@/router"
 import useSettingStore from "@/stores/settings.ts"
+import { useUserStore } from "@/stores/user.ts"
 
 const route = useRoute()
 // 根据路由激活当前的菜单
@@ -37,6 +37,9 @@ const activeMenu = computed(() => {
 const appStore = useAppStore()
 const settingStore = useSettingStore()
 const { sidebar } = storeToRefs(appStore)
+const userStore = useUserStore()
+
+console.log(userStore.state.menu)
 </script>
 
 <style lang="scss" scoped>

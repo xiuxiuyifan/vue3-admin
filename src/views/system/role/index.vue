@@ -32,8 +32,13 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="170">
         <template #default="{ row }">
-          <el-button link type="primary" size="small" @click="handleSetRole">
-            菜单权限
+          <el-button
+            link
+            type="primary"
+            size="small"
+            @click="handleSetRole(row)"
+          >
+            分配权限
           </el-button>
           <el-button
             link
@@ -73,6 +78,9 @@
         :data="roleData"
       />
     </right-panel>
+    <right-panel :size="650" v-model="showRoleMenu" title="分配权限">
+      <role-menu :row="currentRow" />
+    </right-panel>
   </div>
 </template>
 
@@ -87,10 +95,6 @@ const AddIcon = <SvgIcon iconName="ant-design:plus-outlined" />
 const SearchIcon = <SvgIcon iconName="ant-design:search-outlined" />
 const ResetIcon = <SvgIcon iconName="ant-design:undo-outlined" />
 const { proxy } = getCurrentInstance()
-
-const handleSetRole = () => {
-  return
-}
 
 const tableData = ref<IRole[]>([])
 
@@ -184,9 +188,6 @@ const handleSubmitRole = (data: IRole) => {
     }
   }
 }
-onMounted(() => {
-  initData()
-})
 
 const initData = async () => {
   try {
@@ -202,4 +203,15 @@ const initData = async () => {
     loading.value = false
   }
 }
+
+const showRoleMenu = ref(false)
+const currentRow = ref<IRole>()
+const handleSetRole = (row: IRole) => {
+  showRoleMenu.value = true
+  currentRow.value = row
+}
+
+onMounted(() => {
+  initData()
+})
 </script>

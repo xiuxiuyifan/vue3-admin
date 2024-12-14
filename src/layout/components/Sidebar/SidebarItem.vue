@@ -1,16 +1,16 @@
 <template>
   <!--  没有隐藏的时候才渲染-->
-  <template v-if="!item.meta?.hidden">
+  <template v-if="!item.hidden">
     <!--    alwaysShow 为 true 的时候，就会走 else 去渲染子菜单了-->
     <SidebarItemLink
-      v-if="filteredChildren.length <= 1 && !item.meta?.alwaysShow"
-      :to="resolvePath(singleChildRoute.path)"
+      v-if="filteredChildren.length <= 1 && !item.alwaysShow"
+      :to="singleChildRoute.path"
     >
-      <el-menu-item :index="resolvePath(singleChildRoute.path)">
+      <el-menu-item :index="singleChildRoute.path">
         <el-icon v-if="iconName">
           <SvgIcon :icon-name="iconName" />
         </el-icon>
-        <template #title>{{ singleChildRoute.meta?.title }}</template>
+        <template #title>{{ singleChildRoute.title }}</template>
       </el-menu-item>
     </SidebarItemLink>
     <el-sub-menu v-else :index="item.path">
@@ -18,13 +18,12 @@
         <el-icon v-if="iconName">
           <SvgIcon :icon-name="iconName" />
         </el-icon>
-        <span>{{ item.meta?.title }}</span>
+        <span>{{ item.title }}</span>
       </template>
       <SidebarItem
         v-for="child in filteredChildren"
         :key="child.path"
         :item="child"
-        :base-path="resolvePath(child.path)"
       ></SidebarItem>
     </el-sub-menu>
   </template>
@@ -39,12 +38,10 @@ import { isExternal } from "@/utils/validate.ts"
 // 递归结束的条件就是 children 的 length 为 0
 const { item, basePath } = defineProps<{
   item: ITreeItemDataWithMenuData
-  // 父路径
-  basePath: string
 }>()
 // 取出儿子  并过滤出没有被隐藏的菜单
 const filteredChildren = computed(() =>
-  (item.children || []).filter((child) => !child.meta.hidden)
+  (item.children || []).filter((child) => !child.hidden)
 )
 
 // 计算单一子节点 ，如果只有一个孩子，则取第 0 个值，否则去当前值
@@ -53,14 +50,13 @@ const singleChildRoute = computed(() => {
     ? filteredChildren.value[0]
     : {
         // 如果不是一个子节点则，需要把上级的路径清空
-        ...item,
-        path: ""
+        ...item
       }
 })
 
 // 取出 Icon，如果没有 icon 就用父路由的
 const iconName = computed(() => {
-  return singleChildRoute.value.meta?.icon || (item.meta && item.meta.icon)
+  return singleChildRoute.value?.icon || (item && item.icon)
 })
 
 // 拼接路径

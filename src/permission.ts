@@ -3,12 +3,16 @@ import nProgress from "nprogress"
 import "nprogress/nprogress.css"
 
 import { getToken } from "@/utils/auth.ts"
+import { getPermission, getUserInfo } from "@/api/user.ts"
+import { useUserStore } from "@/stores/user.ts"
+import { generateMenu } from "@/utils"
 
 nProgress.configure({ showSpinner: false })
 const whiteList = ["/login"]
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   nProgress.start()
+  const userStore = useUserStore()
   // 根据 token 判断是否登录过了
   const token = getToken()
   if (token) {
@@ -18,6 +22,24 @@ router.beforeEach((to) => {
       return {
         path: "/",
         replace: true
+      }
+    } else {
+      // 正常进入页面
+      // 判断有没有用户信息
+      if (userStore.state.userInfo) {
+        nProgress.done()
+        return true
+      } else {
+        try {
+          const permissionRes = await getPermission()
+          const { menu, userInfo } = permissionRes.data
+
+          // 根据菜单信息 生成路由配置表信息
+          const menuTree = generateMenu(menu)
+          userStore.setPermission(menuTree, userInfo)
+        } catch (e) {
+          console.log(e)
+        }
       }
     }
     // 如果不是登录页

@@ -44,7 +44,7 @@ const outerHeightStyle = computed(() => {
 
 const containerStyle = computed(() => {
   return {
-    "padding-left": appStore.sidebar.opened ? "64px" : "210px"
+    // "padding-left": appStore.sidebar.opened ? "64px" : "210px"
   }
 })
 </script>
@@ -55,17 +55,19 @@ const containerStyle = computed(() => {
 
   .sidebar-container {
     @apply bg-[var(--menu-bg)];
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    z-index: 5000;
+    flex-shrink: 0;
+    //position: fixed;
+    //top: 0;
+    //bottom: 0;
+    //z-index: 1;
     :deep(.sidebar-container-menu:not(.el-menu--collapse)) {
       @apply w-[var(--sidebar-width)];
     }
   }
 
   .main-container {
-    @apply flex flex-1 flex-col pos-fixed top-0 bottom-0 left-0 right-0;
+    //@apply flex flex-1 flex-col pos-fixed top-0 bottom-0 left-0 right-0 z1;
+    flex: 1;
     overflow: hidden;
     .header {
       .navbar {

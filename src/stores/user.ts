@@ -5,7 +5,10 @@ import { useTagsView } from "@/stores/tagsView.ts"
 
 export const useUserStore = defineStore("user", () => {
   const state = reactive({
-    token: ""
+    token: "",
+    userInfo: null,
+    // 存放动态路由树
+    menu: []
   })
 
   // 调用登录接口
@@ -39,10 +42,16 @@ export const useUserStore = defineStore("user", () => {
     removeToken()
   }
 
+  const setPermission = (menu, userInfo) => {
+    state.userInfo = userInfo
+    state.menu = menu
+  }
+
   return {
     state,
     login,
     logout,
-    resetToken
+    resetToken,
+    setPermission
   }
 })
