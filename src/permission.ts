@@ -5,7 +5,7 @@ import "nprogress/nprogress.css"
 import { getToken } from "@/utils/auth.ts"
 import { getPermission, getUserInfo } from "@/api/user.ts"
 import { useUserStore } from "@/stores/user.ts"
-import { generateMenu } from "@/utils"
+import { generateMenu, generateRouter } from "@/utils"
 
 nProgress.configure({ showSpinner: false })
 const whiteList = ["/login"]
@@ -36,7 +36,12 @@ router.beforeEach(async (to) => {
 
           // 根据菜单信息 生成路由配置表信息
           const menuTree = generateMenu(menu)
+          console.log(menuTree)
           userStore.setPermission(menuTree, userInfo)
+          // 将 menu 信息转换成 router 信息
+          const routers = generateRouter(menuTree)
+          routers.forEach(router.addRoute)
+          return { ...to, replace: true }
         } catch (e) {
           console.log(e)
         }

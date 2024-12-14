@@ -2,8 +2,9 @@
   <!--  没有隐藏的时候才渲染-->
   <template v-if="!item.hidden">
     <!--    alwaysShow 为 true 的时候，就会走 else 去渲染子菜单了-->
+    <!--    没有子菜单的情况， 渲染当前节点就结束了-->
     <SidebarItemLink
-      v-if="filteredChildren.length <= 1 && !item.alwaysShow"
+      v-if="filteredChildren.length == 0"
       :to="singleChildRoute.path"
     >
       <el-menu-item :index="singleChildRoute.path">
@@ -13,6 +14,7 @@
         <template #title>{{ singleChildRoute.title }}</template>
       </el-menu-item>
     </SidebarItemLink>
+    <!--    有子菜单的情况， 需要遍历递归的去渲染-->
     <el-sub-menu v-else :index="item.path">
       <template #title>
         <el-icon v-if="iconName">
@@ -44,14 +46,9 @@ const filteredChildren = computed(() =>
   (item.children || []).filter((child) => !child.hidden)
 )
 
-// 计算单一子节点 ，如果只有一个孩子，则取第 0 个值，否则去当前值
+// 如果没有孩子则把当前节点渲染为一级菜单
 const singleChildRoute = computed(() => {
-  return filteredChildren.value.length === 1
-    ? filteredChildren.value[0]
-    : {
-        // 如果不是一个子节点则，需要把上级的路径清空
-        ...item
-      }
+  return item
 })
 
 // 取出 Icon，如果没有 icon 就用父路由的

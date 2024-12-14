@@ -35,12 +35,13 @@ const DownIcon = () => {
 // 菜单拖拽，一般不能把 子菜单拖拽成为一级菜单
 // 一级菜单也不能拖拽成为 子菜单
 const handleDrop = () => {
-  // 每次退拽完成之后，重新根据当前树形结构修改 排序字段
+  // 每次退拽完成之后，重新根据当前树形结构修改 排序字段  和 parent_id 字段
   traverseTree<ITreeItemData>(
     data.value,
-    (node: ITreeItemData, index?: number) => {
+    (node: ITreeItemData, index?: number, parent_id) => {
       if (index !== undefined) {
         node.sort_id = index
+        node.parent_id = parent_id
       }
     }
   )
@@ -63,7 +64,7 @@ const handleDrop = () => {
  * @param type  拖拽结束的类型
  */
 const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropType) => {
-  // 如果拖拽的是顶层节点
+  // 顶层节点只能移动 菜单顺序
   if (
     draggingNode.data.parent_id === null &&
     dropNode.data.parent_id === null &&
@@ -71,15 +72,12 @@ const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropType) => {
   ) {
     return true
   }
-  // 如果拖拽的非顶层节点
-  else if (
-    (draggingNode.data.parent_id !== null &&
-      dropNode.data.parent_id !== null) ||
-    // 非顶级节点可以拖拽到顶级节点的内部，非顶级节点之间可以互相拖拽
-    (draggingNode.data.parent_id !== null &&
-      dropNode.data.parent_id === null &&
-      ["inner"].includes(type))
-  ) {
+  // 如果拖拽的非顶层节点 放下的时候如果是 顶层节点，则只能是 inner 否则三者都可以
+  else if (draggingNode.data.parent_id !== null) {
+    // 判断放下的 如果是父节点，则前面和后面都不可以
+    if (dropNode.data.parent_id === null && ["next", "prev"].includes(type)) {
+      return false
+    }
     return true
   } else {
     return false

@@ -55,24 +55,27 @@ interface TreeNode<T> {
 
 export function traverseTree<T>(
   tree: TreeNode<T> | TreeNode<T>[],
-  callback: (node: TreeNode<T>, index?: number) => void
+  callback: (node: TreeNode<T>, index?: number, parent_id: number) => void
 ) {
-  const traverse = (node: TreeNode<T>, index?: number) => {
-    callback(node, index)
+  const traverse = (node: TreeNode<T>, index?: number, parent_id) => {
+    callback(node, index, parent_id)
 
     // 判断当前节点有没有子节点
     if (node.children && node.children.length > 0) {
+      // 内层
       node.children.forEach((item, index) => {
-        traverse(item, index)
+        traverse(item, index, node.id)
       })
     }
   }
   // 判断传进来的是不是数组
   if (Array.isArray(tree)) {
+    // 最外层
     tree.forEach((item, index) => {
-      traverse(item, index)
+      traverse(item, index, null)
     })
   } else {
+    console.log("进来了", tree)
     traverse(tree)
   }
 }

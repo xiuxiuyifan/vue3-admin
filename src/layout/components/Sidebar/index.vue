@@ -11,6 +11,7 @@
     :active-text-color="settingStore.theme"
     :collapse-transition="true"
   >
+    <!--    在外边循环一次，这样在内部只用处理，有子菜单 和没有子菜单的两种情况了-->
     <SidebarItem
       v-for="route in userStore.state.menu"
       :key="route.path"
