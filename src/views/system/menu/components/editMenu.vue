@@ -20,7 +20,9 @@ const initForm = (): IMenu => {
     route: true,
     hidden: false,
     keep_alive: false,
-    internal_or_external: false
+    internal_or_external: false,
+    // 授权策略
+    strategy: ""
   }
 }
 
@@ -113,7 +115,8 @@ const rules = reactive({
   ],
   internal_or_external: [
     { type: "boolean", message: "请选择打开方式", trigger: "change" }
-  ]
+  ],
+  strategy: [{ required: true, message: "请选择授权策略", trigger: "change" }]
 })
 
 const loading = ref(false)
@@ -157,76 +160,121 @@ onMounted(() => {
         <el-radio-button label="按钮/权限" :value="2" />
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="菜单名称" prop="title">
-      <el-input
-        v-model="ruleForm.title"
-        clearable
-        placeholder="请输入菜单名称"
-      />
-    </el-form-item>
-    <el-form-item label="上级菜单" prop="parent_id" v-if="ruleForm.type === 1">
-      <el-tree-select
-        v-model="ruleForm.parent_id"
-        :filter-node-method="filterNodeMethod"
-        :data="menuTree"
-        node-key="id"
-        :props="{
-          label: (data: IMenu[], node: Node) => {
-            return node && node.data.title
-          }
-        }"
-        check-strictly
-        filterable
+    <template v-if="[0, 1].includes(ruleForm.type)">
+      <el-form-item label="菜单名称" prop="title">
+        <el-input
+          v-model="ruleForm.title"
+          clearable
+          placeholder="请输入菜单名称"
+        />
+      </el-form-item>
+      <el-form-item
+        label="上级菜单"
+        prop="parent_id"
+        v-if="ruleForm.type === 1"
       >
-        <template #default="{ node }">
-          <span>{{ node.data.title }}</span>
-        </template>
-      </el-tree-select>
-    </el-form-item>
-    <el-form-item label="访问路径" prop="path">
-      <el-input
-        v-model="ruleForm.path"
-        clearable
-        placeholder="请输入访问路径"
-      />
-    </el-form-item>
-    <el-form-item label="前端组件" prop="component_path">
-      <el-input
-        v-model="ruleForm.component_path"
-        clearable
-        placeholder="请输入前端组件"
-      />
-    </el-form-item>
-    <el-form-item label="组件名称" prop="component_name">
-      <el-input
-        v-model="ruleForm.component_name"
-        clearable
-        placeholder="请输入组件名称"
-      />
-    </el-form-item>
-    <el-form-item label="菜单图标" prop="icon">
-      <el-input v-model="ruleForm.icon" placeholder="请选择图标" />
-    </el-form-item>
-    <el-form-item label="排序" prop="sort_id">
-      <el-input-number v-model="ruleForm.sort_id" />
-    </el-form-item>
-    <el-form-item label="是否路由菜单" prop="route">
-      <el-switch v-model="ruleForm.route"></el-switch>
-    </el-form-item>
-    <el-form-item label="隐藏路由" prop="hidden">
-      <el-switch v-model="ruleForm.hidden"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否缓存路由" prop="keep_alive">
-      <el-switch v-model="ruleForm.keep_alive"></el-switch>
-    </el-form-item>
-    <el-form-item label="打开方式" prop="internal_or_external">
-      <el-switch
-        inline-prompt
-        active-text="外部"
-        inactive-text="内部"
-        v-model="ruleForm.internal_or_external"
-      ></el-switch>
-    </el-form-item>
+        <el-tree-select
+          v-model="ruleForm.parent_id"
+          :filter-node-method="filterNodeMethod"
+          :data="menuTree"
+          node-key="id"
+          :props="{
+            label: (data: IMenu[], node: Node) => {
+              return node && node.data.title
+            }
+          }"
+          check-strictly
+          filterable
+        >
+          <template #default="{ node }">
+            <span>{{ node.data.title }}</span>
+          </template>
+        </el-tree-select>
+      </el-form-item>
+      <el-form-item label="访问路径" prop="path">
+        <el-input
+          v-model="ruleForm.path"
+          clearable
+          placeholder="请输入访问路径"
+        />
+      </el-form-item>
+      <el-form-item label="前端组件" prop="component_path">
+        <el-input
+          v-model="ruleForm.component_path"
+          clearable
+          placeholder="请输入前端组件"
+        />
+      </el-form-item>
+      <el-form-item label="组件名称" prop="component_name">
+        <el-input
+          v-model="ruleForm.component_name"
+          clearable
+          placeholder="请输入组件名称"
+        />
+      </el-form-item>
+      <el-form-item label="菜单图标" prop="icon">
+        <el-input v-model="ruleForm.icon" placeholder="请选择图标" />
+      </el-form-item>
+      <el-form-item label="排序" prop="sort_id">
+        <el-input-number v-model="ruleForm.sort_id" />
+      </el-form-item>
+      <el-form-item label="是否路由菜单" prop="route">
+        <el-switch v-model="ruleForm.route"></el-switch>
+      </el-form-item>
+      <el-form-item label="隐藏路由" prop="hidden">
+        <el-switch v-model="ruleForm.hidden"></el-switch>
+      </el-form-item>
+      <el-form-item label="是否缓存路由" prop="keep_alive">
+        <el-switch v-model="ruleForm.keep_alive"></el-switch>
+      </el-form-item>
+      <el-form-item label="打开方式" prop="internal_or_external">
+        <el-switch
+          inline-prompt
+          active-text="外部"
+          inactive-text="内部"
+          v-model="ruleForm.internal_or_external"
+        ></el-switch>
+      </el-form-item>
+    </template>
+    <template v-if="ruleForm.type == 2">
+      <el-form-item label="按钮名称" prop="icon">
+        <el-input v-model="ruleForm.icon" placeholder="请输入按钮名称" />
+      </el-form-item>
+      <el-form-item label="上级菜单" prop="parent_id">
+        <el-tree-select
+          v-model="ruleForm.parent_id"
+          :filter-node-method="filterNodeMethod"
+          :data="menuTree"
+          node-key="id"
+          :props="{
+            label: (data: IMenu[], node: Node) => {
+              return node && node.data.title
+            }
+          }"
+          check-strictly
+          filterable
+        >
+          <template #default="{ node }">
+            <span>{{ node.data.title }}</span>
+          </template>
+        </el-tree-select>
+      </el-form-item>
+      <el-form-item label="授权标识" prop="icon">
+        <el-input v-model="ruleForm.icon" placeholder="请输入授权标识" />
+      </el-form-item>
+      <el-form-item label="授权策略" prop="icon">
+        <el-radio-group v-model="ruleForm.strategy">
+          <el-radio value="1" border>可见/可访问</el-radio>
+          <el-radio value="2" border>可编辑</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="状态" prop="icon">
+        <el-radio-group v-model="ruleForm.available">
+          <el-radio value="1" border>有效</el-radio>
+          <el-radio value="0" border>无效</el-radio>
+        </el-radio-group>
+      </el-form-item>
+    </template>
     <el-form-item>
       <el-button type="primary" @click="submitForm" :loading="loading"
         >提交</el-button

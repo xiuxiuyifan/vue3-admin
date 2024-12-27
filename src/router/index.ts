@@ -10,24 +10,13 @@ const constantRoutes: Array<RouteRecordRaw> = [
       hidden: true // 配置为隐藏路由
     }
   },
-  // {
-  //   path: "/",
-  //   component: Layout,
-  //   redirect: "/dashboard",
-  //   children: [
-  //     {
-  //       path: "dashboard",
-  //       name: "dashboard",
-  //       component: () => import("@/views/dashboard/index.vue"),
-  //       meta: {
-  //         title: "dashboard",
-  //         icon: "ant-design:windows-filled",
-  //         affix: true,
-  //         noCache: true
-  //       }
-  //     }
-  //   ]
-  // },
+  // 默认的 /home 组件
+  {
+    path: "/",
+    component: Layout,
+    redirect: "/dashboard",
+    children: []
+  },
   {
     path: "/redirect",
     component: Layout,

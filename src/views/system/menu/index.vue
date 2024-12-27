@@ -202,7 +202,10 @@ onMounted(() => {
     >
       <template #default="{ node }">
         <span class="custom-tree-node">
-          <span>{{ node.data.title }}</span>
+          <span>
+            <span>{{ node.data.title }}</span>
+            <el-tag type="primary">Tag 1</el-tag>
+          </span>
           <span>
             <el-button link type="primary" m-r-4px @click="handleEditMenu(node)"
               >编辑</el-button

@@ -25,6 +25,8 @@ export interface IMenu {
   hidden: boolean // 隐藏路由
   keep_alive: boolean //是否缓存路由
   internal_or_external: boolean // 打开方式  false 内部 true 外部
+  strategy: string // 策略  可见 或者 禁用
+  available: string // 按钮是否可用
 }
 
 export const addMenu = (data: IMenu): Promise<ApiResponse> => {

@@ -3,6 +3,8 @@ import { getMenu } from "@/api/menu.ts"
 import { generateTree, ITreeItemData } from "@/utils/tree.ts"
 import { IRole, roleSetMenu } from "@/api/role.ts"
 
+// 选中子节点的时候，必须把父节点也同时选中
+// 如果只想显示子菜单，请去调整菜单信息，不要在这里瞎搞
 const data = ref<ITreeItemData[]>([])
 const treeRef = ref()
 const { proxy } = getCurrentInstance()!
