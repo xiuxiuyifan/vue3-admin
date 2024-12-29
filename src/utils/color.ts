@@ -22,6 +22,7 @@ export const generateColors = (primary: string) => {
   return colors
 }
 
+// 替换 style 标签中 element-plus 原来之前的变量
 export const setColors = (colors: Record<string, string>) => {
   const el = document.documentElement
   Object.entries(colors).forEach(([key, value]) => {

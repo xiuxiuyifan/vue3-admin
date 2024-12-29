@@ -1,5 +1,54 @@
 # vue3 admin
 
+功能清单
+
+- [x] 将 unocss 行内样式提取到 style 中
+- [x] 动态换肤
+- [x] 全屏切换组件
+- [x] 全局设置组件大小，可配置
+- [x] RBAC 根据角色动态渲染菜单信息
+- [x] 两种不同的按钮权限 （可见，或者禁用模式）
+- [x] 可手动配置页面是否需要缓存
+- [x] 菜单可动态调整，拖拽排序
+- [x] 页面标签栏可手动选择是否展示
+- [ ] 将前后端整合成monorepo的形式
+- [ ] 实现 docker 部署 和 nginx 
+- [ ] 
+
+数据库设计
+
+一共只有 5 张表，三张实体表 和两张中间表 来实现多对多的关系
+
+access 菜单表
+
+role 角色表
+
+user 用户表
+
+r_a 角色和菜单的中间表 
+
+u_r 用户和角色的中间表
+
+
+
+er图如下
+
+![](D:\code\vue3-code\vue3-admin\public\r_a.png)
+
+
+
+
+
+
+
+![u_r](D:\code\vue3-code\vue3-admin\public\u_r.png)
+
+
+
+
+
+后期可能继续美化一下页面，暂时只有上面的这些常用的功能，如果还有什么好的需求可以一起实现 ^_^ ，文档完善中 ing....
+
 ## 一、项目搭建
 
 ### 安装 eslint
@@ -132,6 +181,12 @@ pnpm install vue-router
 
 ### 清除默认样式
 
+```
+import "normalize.css/normalize.css"
+```
+
+
+
 ### 完善 layout 样式
 
 ### 提取公共变量
@@ -139,28 +194,63 @@ pnpm install vue-router
 创建 variables.module.scss 配置基础变量
 
 ```
+//scss 里面声明好的变量在 js 里面也可以使用
+
+$sideBarWidth: 210px;
+$navBarHeight: 50px;
+$tagsViewHeight: 34px;
+
+// 菜单文字颜色
+$menuText: #bfcbd9;
+// 菜单激活颜色
+$menuActiveText: #409eff;
+// 菜单背景颜色
+$menuBg: #304156;
+
+$theme: #409eff;
+
+
+// 在 js 中可以使用 sass 变量
+:export {
+  sideBarWidth: $sideBarWidth;
+  navBarHeight: $navBarHeight;
+  tagsViewHeight: $tagsViewHeight;
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  menuBg: $menuBg;
+  theme: $theme;
+}
 
 ```
 
 ### 组件库配置
 
-#### 按需导入
+按需导入等等 参考饿了么官网
 
 #### 组件API挂载到app上
 
+```typescript
+import { ElMessage, ElMessageBox, ElNotification } from "element-plus"
+import type { App } from "vue"
+
+const installElementPlus = (app: App) => {
+  // 都放到组件的实例上
+  app.config.globalProperties.$message = ElMessage
+  app.config.globalProperties.$notify = ElNotification
+  app.config.globalProperties.$confirm = ElMessageBox.confirm
+  app.config.globalProperties.$alert = ElMessageBox.alert
+  app.config.globalProperties.$prompt = ElMessageBox.prompt
+}
+
+export default installElementPlus
+
+export type Size = "default" | "large" | "small"
+
+
+app.use(installElementPlus)
 ```
 
-```
 
-#### 解决 eslint 报错
-
-
-
-
-
-
-
-## 二、icon 组件和菜单组件
 
 
 
@@ -172,17 +262,9 @@ pnpm install vue-router
 
 ### sidebar 基本样式
 
-
-
 给 sass 增添类型声明文件，便于代码提示。
 
-
-
 ### 菜单收缩按钮以及接入 pinia 
-
-
-
-
 
 ####  创建菜单收缩按钮组件
 
@@ -247,28 +329,29 @@ element-plus主题色替换的三个步骤  实现原理  （分为三步）
     type ISettings = typeof settings
     
     // 泛型函数
-    const changeSetting = <T extends keyof ISettings>({
-                                                      key,
-                                                      value
-                                                    }: {
+    const changeSetting = <T extends keyof ISettings>(
+        {
+      key,
+      value
+    }: {
     key: T
     value: ISettings[T]
     }) => {
     settings[key] = value
     }
-```
+  ```
 
 4. 动态改变主题颜色
 watch store 中的 theme 变量，变化之后用 js 修改 css root 中的 element 定义的样式变量
 
+```javascript
 var color = require('css-color-function');
 
 color.convert('color(red tint(50%))');
 
 // "rgb(255, 128, 128)"
 将一个颜色
-5. 
-
+```
 
 
 
@@ -285,7 +368,6 @@ color.convert('color(red tint(50%))');
 
 如果只有父菜单下面没有子菜单：则父菜单也当做路由渲染出来
 如果父菜单下满有儿子，则不管是多少个都当做路由渲染出来，此时并不把当前父菜单渲染为路由。
-
 
 
 
