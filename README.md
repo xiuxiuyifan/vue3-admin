@@ -13,7 +13,16 @@
 - [x] 页面标签栏可手动选择是否展示
 - [ ] 将前后端整合成monorepo的形式
 - [ ] 实现 docker 部署 和 nginx 
-- [ ] 
+
+
+
+[仓库地址](https://github.com/xiuxiuyifan/vue3-admin)
+
+整体功能演示
+
+![](./public/动画.gif)
+
+
 
 数据库设计
 
@@ -33,7 +42,7 @@ u_r 用户和角色的中间表
 
 er图如下
 
-![](D:\code\vue3-code\vue3-admin\public\r_a.png)
+![](./public/r_a.png)
 
 
 
@@ -41,13 +50,13 @@ er图如下
 
 
 
-![u_r](D:\code\vue3-code\vue3-admin\public\u_r.png)
+![u_r](./public/u_r.png)
 
 
 
 
 
-后期可能继续美化一下页面，暂时只有上面的这些常用的功能，如果还有什么好的需求可以一起实现 ^_^ ，文档完善中 ing....
+后期可能继续美化一下页面，暂时只有上面的这些常用的功能，如果还有什么好的需求可以一起实现 ^_^ ，文档完善中 ing....  欢迎 star ，您的 star 是我更新的动力。
 
 ## 一、项目搭建
 
@@ -67,7 +76,16 @@ eslint-plugin-prettier
 
 ### vs code prettier 配置
 
-```
+.vscode/settings.json
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
 
 ```
 
