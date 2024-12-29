@@ -8,7 +8,11 @@ export const useUserStore = defineStore("user", () => {
     token: "",
     userInfo: null,
     // 存放动态路由树
-    menu: []
+    menu: [],
+    // 存放按钮权限
+    buttonAuth: [],
+    // 存放禁用和显示的按钮
+    disableButton: []
   })
 
   // 调用登录接口
@@ -42,9 +46,11 @@ export const useUserStore = defineStore("user", () => {
     removeToken()
   }
 
-  const setPermission = (menu, userInfo) => {
+  const setPermission = (menu, userInfo, buttonAuth, disableButton) => {
     state.userInfo = userInfo
     state.menu = menu
+    state.buttonAuth = buttonAuth
+    state.disableButton = disableButton
   }
 
   return {

@@ -204,7 +204,7 @@ onMounted(() => {
         <span class="custom-tree-node">
           <span>
             <span>{{ node.data.title }}</span>
-            <el-tag type="primary">Tag 1</el-tag>
+            <span v-if="node.data.type === 2">（按钮）</span>
           </span>
           <span>
             <el-button link type="primary" m-r-4px @click="handleEditMenu(node)"

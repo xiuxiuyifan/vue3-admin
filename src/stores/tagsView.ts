@@ -41,7 +41,7 @@ export const useTagsView = defineStore("tags", () => {
       return
     }
     // 如果需要缓存
-    if (!view.meta.noCache) {
+    if (view.meta.keepAlive) {
       cachedViews.value.push(view.name)
     }
   }

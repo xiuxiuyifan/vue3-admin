@@ -12,6 +12,7 @@ import "virtual:uno.css"
 import "normalize.css/normalize.css"
 import installElementPlus from "./plugins/element"
 import "./permission"
+import directives from "@/directive"
 
 const app = createApp(App)
 
@@ -19,5 +20,6 @@ const app = createApp(App)
 app.use(installElementPlus)
 app.use(router)
 app.use(store)
+app.use(directives)
 app.mount("#app")
 //

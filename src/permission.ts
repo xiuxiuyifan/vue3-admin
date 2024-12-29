@@ -32,12 +32,12 @@ router.beforeEach(async (to) => {
       } else {
         try {
           const permissionRes = await getPermission()
-          const { menu, userInfo } = permissionRes.data
+          const { menu, userInfo, buttonAuth, disableButton } =
+            permissionRes.data
 
           // 根据菜单信息 生成路由配置表信息
           const menuTree = generateMenu(menu)
-          console.log(menuTree)
-          userStore.setPermission(menuTree, userInfo)
+          userStore.setPermission(menuTree, userInfo, buttonAuth, disableButton)
           // 将 menu 信息转换成 router 信息
           const routers = generateRouter(menuTree)
           routers.forEach(router.addRoute)

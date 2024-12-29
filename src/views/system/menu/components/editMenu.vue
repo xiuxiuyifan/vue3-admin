@@ -22,7 +22,9 @@ const initForm = (): IMenu => {
     keep_alive: false,
     internal_or_external: false,
     // 授权策略
-    strategy: ""
+    perms: "", // 授权标识
+    strategy: "1",
+    available: "1"
   }
 }
 
@@ -116,7 +118,8 @@ const rules = reactive({
   internal_or_external: [
     { type: "boolean", message: "请选择打开方式", trigger: "change" }
   ],
-  strategy: [{ required: true, message: "请选择授权策略", trigger: "change" }]
+  strategy: [{ required: true, message: "请选择授权策略", trigger: "change" }],
+  available: [{ required: true, message: "请选择状态", trigger: "change" }]
 })
 
 const loading = ref(false)
@@ -154,7 +157,7 @@ onMounted(() => {
     status-icon
   >
     <el-form-item label="菜单类型" prop="type">
-      <el-radio-group v-model="ruleForm.type">
+      <el-radio-group v-model="ruleForm.type" :disabled="actionType === 'edit'">
         <el-radio-button label="一级菜单" :value="0" />
         <el-radio-button label="子菜单" :value="1" />
         <el-radio-button label="按钮/权限" :value="2" />
@@ -237,8 +240,8 @@ onMounted(() => {
       </el-form-item>
     </template>
     <template v-if="ruleForm.type == 2">
-      <el-form-item label="按钮名称" prop="icon">
-        <el-input v-model="ruleForm.icon" placeholder="请输入按钮名称" />
+      <el-form-item label="按钮名称" prop="title">
+        <el-input v-model="ruleForm.title" placeholder="请输入按钮名称" />
       </el-form-item>
       <el-form-item label="上级菜单" prop="parent_id">
         <el-tree-select
@@ -259,16 +262,16 @@ onMounted(() => {
           </template>
         </el-tree-select>
       </el-form-item>
-      <el-form-item label="授权标识" prop="icon">
-        <el-input v-model="ruleForm.icon" placeholder="请输入授权标识" />
+      <el-form-item label="授权标识" prop="perms">
+        <el-input v-model="ruleForm.perms" placeholder="请输入授权标识" />
       </el-form-item>
-      <el-form-item label="授权策略" prop="icon">
+      <el-form-item label="授权策略" prop="strategy">
         <el-radio-group v-model="ruleForm.strategy">
-          <el-radio value="1" border>可见/可访问</el-radio>
-          <el-radio value="2" border>可编辑</el-radio>
+          <el-radio value="1" border>显示/不显示</el-radio>
+          <el-radio value="2" border>正常/禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="状态" prop="icon">
+      <el-form-item label="状态" prop="available">
         <el-radio-group v-model="ruleForm.available">
           <el-radio value="1" border>有效</el-radio>
           <el-radio value="0" border>无效</el-radio>

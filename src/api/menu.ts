@@ -27,6 +27,7 @@ export interface IMenu {
   internal_or_external: boolean // 打开方式  false 内部 true 外部
   strategy: string // 策略  可见 或者 禁用
   available: string // 按钮是否可用
+  perms: string // 授权标识
 }
 
 export const addMenu = (data: IMenu): Promise<ApiResponse> => {

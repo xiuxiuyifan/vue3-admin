@@ -39,8 +39,6 @@ const appStore = useAppStore()
 const settingStore = useSettingStore()
 const { sidebar } = storeToRefs(appStore)
 const userStore = useUserStore()
-
-console.log(userStore.state.menu)
 </script>
 
 <style lang="scss" scoped>

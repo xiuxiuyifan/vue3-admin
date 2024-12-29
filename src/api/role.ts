@@ -50,3 +50,8 @@ export const deleteRole = (id: string): Promise<ApiResponse> => {
 export const roleSetMenu = (id: number, data: { access: number[] }) => {
   return request.post(`/role_access/${id}`, data)
 }
+
+// 通过角色id获取权限
+export const getAccessByRole = (roldId: string) => {
+  return request.get(`/role_access/${roldId}`)
+}

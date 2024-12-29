@@ -79,7 +79,7 @@
       />
     </right-panel>
     <right-panel :size="650" v-model="showRoleMenu" title="分配权限">
-      <role-menu :row="currentRow" />
+      <role-menu :row="currentRow" @submit="onSubmit" />
     </right-panel>
   </div>
 </template>
@@ -210,6 +210,21 @@ const handleSetRole = (row: IRole) => {
   showRoleMenu.value = true
   currentRow.value = row
 }
+
+const onSubmit = () => {
+  showRoleMenu.value = false
+  initData()
+}
+
+watch(
+  () => showRoleMenu.value,
+  (newValue) => {
+    // 关闭的时候清空当前选中行的数据
+    if (!newValue) {
+      currentRow.value = {}
+    }
+  }
+)
 
 onMounted(() => {
   initData()
